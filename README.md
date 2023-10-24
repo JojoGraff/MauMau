@@ -1,3 +1,4 @@
+[![Coverage Status](https://coveralls.io/repos/github/JojoGraff/MauMau/badge.svg)](https://coveralls.io/github/JojoGraff/MauMau)
 # Maumau
 
 Project for the htwg lecture reactive systems.
