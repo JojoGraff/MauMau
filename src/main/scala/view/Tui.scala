@@ -10,12 +10,14 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
 
   def loop(): Unit =
 
-    var message = wrapResult(() => maumauController.drawCard(1, 1))
+
+    val message = wrapResult(() => maumauController.drawCard(1, 1))
     drawCards()
     logger.info(s"Status:$message")
 
   def drawCards(): Unit =
     logger.info("Maumau")
+    logger.info(s"Pile:${maumauController.game.pile.display}")
     maumauController.game.players.zipWithIndex
       .foreach((player, i) => logger.info(player.cards.foldLeft(s"Player $i:")((card1, card2) => card1 + " " + card2)))
 

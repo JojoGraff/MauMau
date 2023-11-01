@@ -1,6 +1,6 @@
 package controller
 
-import model.{Deck, Game, Player}
+import model.{Deck, Game, Pile, Player}
 import org.mockito.Mockito.when
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -14,9 +14,10 @@ class MaumauControllerSpec extends AsyncWordSpec with Matchers:
   val randomMock: Random = mock[Random]
   when(randomMock.nextInt).thenReturn(1)
   val deck: Deck = Deck(randomMock)
+  val pile: Pile = Pile(Seq())
   val player1: Player = Player(Seq())
   val player2: Player = Player(Seq())
-  val game: Game = Game(deck, Seq(player1, player2))
+  val game: Game = Game(deck, pile, Seq(player1, player2))
   val maumauController: MaumauController = MaumauController(game)
 
   "drawCard" should {

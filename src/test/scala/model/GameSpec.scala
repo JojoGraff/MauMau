@@ -17,9 +17,10 @@ class GameSpec extends AsyncWordSpec with Matchers:
 
   val random: Random = Random()
   val deck: Deck = Deck(random)
+  val pile: Pile = Pile(Seq())
   val player1: Player = Player(Seq())
   val player2: Player = Player(Seq())
-  val sut: Game = Game(deck, Seq(player1,player2))
+  val sut: Game = Game(deck, pile, Seq(player1,player2))
 
   "drawCard" should {
     "draw a card" in {
