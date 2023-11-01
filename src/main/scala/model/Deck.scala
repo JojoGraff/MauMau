@@ -5,8 +5,10 @@ import model.Symbol.Hearts
 
 import scala.util.Random
 
-class Deck():
-  def randomCard(random: Random): Card = Deck.cards(random.nextInt(Deck.cards.length))
+class Deck(random: Random):
+  def randomCard(): Card = Deck.cards(random.nextInt(Deck.cards.length))
+
+  def randomCards(amount: Int): Seq[Card] = Seq.range(0, amount).map(_ => randomCard())
 
 object Deck:
   val cards: Seq[Card] = Seq(

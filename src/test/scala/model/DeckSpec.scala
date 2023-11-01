@@ -13,12 +13,14 @@ import scala.language.postfixOps
 import scala.util.Random
 
 class DeckSpec extends AnyFlatSpec with Matchers:
+  val randomMock: Random = mock[Random]
+  when(randomMock.nextInt).thenReturn(1)
+  val deck: Deck = Deck(randomMock)
 
-  "A deck" should "draw a random card" in {
-    val randomMock = mock[Random]
-    when(randomMock.nextInt).thenReturn(1)
+  it should "draw a random card" in {
+    deck.randomCard() shouldEqual Card(Rank_7, Hearts)
+  }
 
-    val deck = Deck()
-
-    deck.randomCard(randomMock) shouldEqual Card(Rank_7, Hearts)
+  it should "draw a bunch of random card" in {
+    deck.randomCards(2) shouldEqual Seq(Card(Rank_7, Hearts), (Card(Rank_7, Hearts)))
   }

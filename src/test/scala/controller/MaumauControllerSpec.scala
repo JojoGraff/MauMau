@@ -12,16 +12,14 @@ class MaumauControllerSpec extends AnyFlatSpec with Matchers:
 
   val randomMock: Random = mock[Random]
   when(randomMock.nextInt).thenReturn(1)
+  val deck: Deck = Deck(randomMock)
+  val player1: Player = Player(Seq())
+  val game: Game = Game(deck, player1)
+  val maumauController: MaumauController = MaumauController(game)
 
   "drawCard" should "draw a card for player1" in {
-    val deck = Deck()
-    val player1 = Player(Deck.cards)
-    val game = Game(deck, player1)
 
-    val maumauController = MaumauController(game, randomMock)
+    maumauController.drawCard(2)
 
-    val cardSize = game.player.cards.size
-
-    maumauController.drawCard()
-    game.player.cards.size should be(cardSize + 1)
+    maumauController.game.player.cards.size shouldBe 2
   }
