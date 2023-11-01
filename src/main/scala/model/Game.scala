@@ -27,3 +27,9 @@ case class Game(deck: Deck, pile: Pile, players: Seq[Player]):
     players.lift(playerIndex) match
       case None         => Failure(new IndexOutOfBoundsException(s"Player $playerIndex is not given"))
       case Some(player) => Success(player)
+
+  def getPlayerCard(cardIndex :Int,playerIndex :Int):Try[Card] =
+    for 
+      player <- playerTry(playerIndex)
+      card <- player.cardTry(cardIndex)
+    yield card

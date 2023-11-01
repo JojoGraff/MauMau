@@ -62,3 +62,27 @@ class GameSpec extends AsyncWordSpec with Matchers:
       result shouldBe a[Failure[_]]
     }
   }
+
+  "getPlayerCard" should {
+    val cards: Seq[Card] = Seq(Card(Rank_7, Hearts), Card(Rank_8, Hearts))
+    val player2: Player = Player(cards)
+    val sut: Game = Game(deck, pile, Seq(player1, player2))
+
+    "get the given card from the player" in {
+      val result = sut.getPlayerCard(0, 1).get
+
+      result shouldEqual cards(0)
+    }
+
+    "fail if playerIndex is out of range" in {
+      val result = sut.getPlayerCard(1, 10)
+
+      result shouldBe a[Failure[_]]
+    }
+
+    "fail if cardIndex is out of range for given playerIndex" in {
+      val result = sut.getPlayerCard(10, 0)
+
+      result shouldBe a[Failure[_]]
+    }
+  }

@@ -15,3 +15,7 @@ case class Player(cards: Seq[Card]):
       case Some(card) =>
         val newCards = cards.filter(_ != card)
         Success(this.copy(newCards), card)
+  
+  def cardTry(cardIndex: Int): Try[Card] = cards.lift(cardIndex) match
+    case None => Failure(new IndexOutOfBoundsException(s"Card $cardIndex is not given"))
+    case Some(card) => Success(card)

@@ -35,7 +35,6 @@ class PlayerSpec extends AsyncWordSpec with Matchers:
     }
   }
 
-
   "removeCard" should {
     "remove given card" in {
       val player: Player = Player(cards)
@@ -46,6 +45,19 @@ class PlayerSpec extends AsyncWordSpec with Matchers:
     }
 
     "fail if index of card is out of range" in {
-       player.removeCard(10) shouldBe a [Failure[_]]
+      player.removeCard(10) shouldBe a[Failure[_]]
+    }
+  }
+
+  "cardTry" should {
+    "get given card" in {
+      val player: Player = Player(cards)
+      val result = player.cardTry(1).get
+
+      result shouldEqual cards(1)
+    }
+
+    "fail if index of card is out of range" in {
+      player.cardTry(10) shouldBe a[Failure[_]]
     }
   }
