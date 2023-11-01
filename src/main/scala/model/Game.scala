@@ -11,3 +11,5 @@ case class Game(deck: Deck, players: Seq[Player]):
     val playerNew = player.addCards(cards)
 
     this.copy(deck, players.updated(playerIndex, playerNew))
+
+

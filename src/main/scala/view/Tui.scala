@@ -1,15 +1,18 @@
 package view
 
+import controller.MaumauController
 import model.Game
 
-case class Tui():
+case class Tui(maumauController: MaumauController):
 
-  def draw(game: Game): Unit =
+  def draw(): Unit =
     System.out.println("Maumau")
 
-    game.players
-      .zip(1 until game.players.size)
-      .foreach((player, i) => player.cards.foldLeft("Player $i:")((card1, card2) => card1 + " " + card2))
+    maumauController.game.players.zipWithIndex
+      .foreach((player, i) => 
+        System.out.println(player.cards.foldLeft(s"Player $i:")((card1, card2) => card1 + " " + card2))
+      )
+    
 
 
 
