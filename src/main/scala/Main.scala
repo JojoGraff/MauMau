@@ -1,5 +1,15 @@
-@main def hello(): Unit =
-  println("Hello world!")
-  println(msg)
+import controller.MaumauController
+import model.{Deck, Game, Player}
+import view.Tui
 
-def msg = "I was compiled by Scala 3. :)"
+import scala.util.Random
+
+@main def hello(): Unit =
+  val deck = Deck()
+  val player1 = Player(Deck.cards)
+  val game = Game(deck, player1)
+  val maumauController = MaumauController(game, Random())
+  maumauController.drawCard()
+
+  val tui = Tui()
+  tui.draw(game)
