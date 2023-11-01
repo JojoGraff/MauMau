@@ -12,10 +12,9 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
     action(() => maumauController.drawCard(1, 1))
     action(() => maumauController.drawCard(1, 1))
     action(() => maumauController.layCard(1, 1))
-    
-    
+
   def action(execute: () => Try[String]): Unit =
-    
+
     val message = wrapResult(execute)
     drawCards()
     logger.info(s"Status:$message")
