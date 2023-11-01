@@ -9,7 +9,8 @@ import scala.util.Random
   val deck = Deck(random)
 
   val player1 = Player(Deck.cards)
-  val game = Game(deck, player1)
+  val player2 = Player(Deck.cards)
+  val game = Game(deck, Seq(player1, player2))
   val maumauController = MaumauController(game)
   maumauController.drawCard(1)
 

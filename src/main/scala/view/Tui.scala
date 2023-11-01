@@ -6,5 +6,11 @@ case class Tui():
 
   def draw(game: Game): Unit =
     System.out.println("Maumau")
-    val playerCards = game.player.cards
-    System.out.println(playerCards.foldLeft("Player1: ")((card1, card2) => card1 + " " + card2))
+
+    game.players
+      .zip(1 until game.players.size)
+      .foreach((player, i) => player.cards.foldLeft("Player $i:")((card1, card2) => card1 + " " + card2))
+
+
+
+
