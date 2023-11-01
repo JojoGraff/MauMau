@@ -9,5 +9,12 @@ class MaumauController(var game: Game):
     game.drawCard(amount, playerIndex) match
       case Success(game) =>
         this.game = game
-        Success("draw card")
+        Success("draw card from pile")
+      case Failure(message) => Failure(message)
+
+  def layCard(cardIndex: Int, playerIndex: Int): Try[String] =
+    game.layCard(cardIndex, playerIndex) match
+      case Success(game) =>
+        this.game = game
+        Success("lay card down")
       case Failure(message) => Failure(message)

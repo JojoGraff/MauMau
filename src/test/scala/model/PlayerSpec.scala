@@ -3,6 +3,7 @@ package model
 import model.Rank.*
 import model.Symbol.Hearts
 import org.mockito.Mockito.{reset, when}
+import org.scalactic.Fail
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.matchers.should
@@ -11,7 +12,7 @@ import org.scalatest.wordspec.AsyncWordSpec
 import org.scalatestplus.mockito.MockitoSugar.mock
 
 import scala.language.postfixOps
-import scala.util.Random
+import scala.util.{Failure, Random}
 
 class PlayerSpec extends AsyncWordSpec with Matchers:
   val cards: Seq[Card] = Seq(Card(Rank_7, Hearts), Card(Rank_8, Hearts))
@@ -31,5 +32,20 @@ class PlayerSpec extends AsyncWordSpec with Matchers:
 
       result.cards shouldEqual cards
 
+    }
+  }
+
+
+  "removeCard" should {
+    "remove given card" in {
+      val player: Player = Player(cards)
+      val (newPlayer, removedCard) = player.removeCard(1).get
+
+      removedCard shouldEqual cards(1)
+      newPlayer.cards.size shouldBe 1
+    }
+
+    "fail if index of card is out of range" in {
+       player.removeCard(10) shouldBe a [Failure[_]]
     }
   }
