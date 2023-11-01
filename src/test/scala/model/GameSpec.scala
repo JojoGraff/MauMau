@@ -11,7 +11,7 @@ import org.scalatest.wordspec.AsyncWordSpec
 import org.scalatestplus.mockito.MockitoSugar.mock
 
 import scala.language.postfixOps
-import scala.util.Random
+import scala.util.{Failure, Random, Success}
 
 class GameSpec extends AsyncWordSpec with Matchers:
 
@@ -23,9 +23,15 @@ class GameSpec extends AsyncWordSpec with Matchers:
 
   "drawCard" should {
     "draw a card" in {
-      val result = sut.drawCard(1, 1)
+      val result = sut.drawCard(1, 1).get
 
       result.players(0).cards.size shouldBe 0
       result.players(1).cards.size shouldBe 1
+    }
+
+    "faile if playerIndex is out of range" in {
+      val result = sut.drawCard(1, 10)
+
+      result shouldBe a [Failure[_]]
     }
   }

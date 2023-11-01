@@ -13,7 +13,5 @@ import scala.util.Random
   val game = Game(deck, Seq(player1, player2))
   val maumauController = MaumauController(game)
   val tui = Tui(maumauController)
-
-  maumauController.drawCard(2,0)
-  maumauController.drawCard(2,1)
-  tui.draw()
+  
+  tui.loop()

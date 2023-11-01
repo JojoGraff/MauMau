@@ -21,7 +21,7 @@ class MaumauControllerSpec extends AsyncWordSpec with Matchers:
 
   "drawCard" should {
     "draw a card for player1" in {
-      maumauController.drawCard(2)
+      maumauController.drawCard(2, 1)
 
       maumauController.game.players(1).cards.size shouldBe 2
     }
