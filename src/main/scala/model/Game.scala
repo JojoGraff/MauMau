@@ -4,14 +4,14 @@ import scala.util.{Failure, Random, Success, Try}
 
 case class Game(deck: Deck, pile: Pile, players: Seq[Player]):
 
-  def drawCard(amount: Int, playerIndex: Int): Try[Game] =
+  def drawCard(playerIndex: Int, amount: Int): Try[Game] =
     val cards = deck.randomCards(amount)
 
     playerTry(playerIndex)
       .map(player => player.addCards(cards))
       .map(newPlayer => this.copy(deck, pile, players.updated(playerIndex, newPlayer)))
 
-  def layCard(cardIndex: Int, playerIndex: Int): Try[Game] =
+  def layCard(playerIndex: Int, cardIndex: Int): Try[Game] =
     for
       player <- playerTry(playerIndex)
       (newPlayer, newPile) <- removeCard(player, cardIndex)
@@ -28,7 +28,7 @@ case class Game(deck: Deck, pile: Pile, players: Seq[Player]):
       case None         => Failure(new IndexOutOfBoundsException(s"Player $playerIndex is not given"))
       case Some(player) => Success(player)
 
-  def getPlayerCard(cardIndex: Int, playerIndex: Int): Try[Card] =
+  def getPlayerCard(playerIndex: Int, cardIndex: Int): Try[Card] =
     for
       player <- playerTry(playerIndex)
       card <- player.cardTry(cardIndex)

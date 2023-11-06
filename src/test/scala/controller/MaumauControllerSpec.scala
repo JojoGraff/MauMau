@@ -24,12 +24,12 @@ class MaumauControllerSpec extends AsyncWordSpec with Matchers:
 
   "drawCard" should {
     "draw a card for player2" in {
-      maumauController.drawCard(2, 1)  shouldBe a [Success[_]]
+      maumauController.drawCard(1, 2)  shouldBe a [Success[_]]
       maumauController.game.players(1).cards.size shouldBe 2
     }
 
     "faile if player index is out of range" in {
-      maumauController.drawCard(2, 10)  shouldBe a [Failure[_]]
+      maumauController.drawCard(10, 2)  shouldBe a [Failure[_]]
     }
   }
 
@@ -40,13 +40,13 @@ class MaumauControllerSpec extends AsyncWordSpec with Matchers:
     val maumauController: MaumauController = MaumauController(game)
 
     "lay a card for player2" in {
-      maumauController.layCard(0, 1) shouldBe a[Success[_]]
+      maumauController.layCard(1, 0) shouldBe a[Success[_]]
 
       maumauController.game.pile.cards.head shouldEqual cards(0)
       maumauController.game.players(1).cards.size shouldBe 1
     }
 
     "fail if index is out of range" in {
-      maumauController.layCard(10, 1) shouldBe a[Failure[_]]
+      maumauController.layCard(1, 10) shouldBe a[Failure[_]]
     }
   }
