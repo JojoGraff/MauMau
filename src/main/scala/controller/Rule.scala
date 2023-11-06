@@ -1,7 +1,5 @@
 package controller
 
-import model.Game
-
 class Rule(game: Game):
   def valide(cardIndex: Int, playerIndex: Int): Boolean =
     val card = game.getPlayerCard(playerIndex, cardIndex).toOption

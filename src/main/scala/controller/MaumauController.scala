@@ -1,6 +1,6 @@
 package controller
 
-import model.{Deck, Game, Player}
+import model.{Deck, Player}
 
 import scala.util.{Failure, Random, Success, Try}
 

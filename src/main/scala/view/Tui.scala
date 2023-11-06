@@ -1,8 +1,7 @@
 package view
 
 import com.typesafe.scalalogging.LazyLogging
-import controller.MaumauController
-import model.Game
+import controller.{Game, MaumauController}
 
 import scala.util.{Failure, Success, Try}
 

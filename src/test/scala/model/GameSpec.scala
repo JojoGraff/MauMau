@@ -1,5 +1,6 @@
 package model
 
+import controller.Game
 import model.Rank.{Rank_7, Rank_8}
 import model.Symbol.Hearts
 import org.mockito.Mockito.when
@@ -20,7 +21,7 @@ class GameSpec extends AsyncWordSpec with Matchers:
   val pile: Pile = Pile(Seq())
   val player1: Player = Player(Seq())
   val player2: Player = Player(Seq())
-  val sut: Game = Game(deck, pile, Seq(player1, player2))
+  val sut: Game = controller.Game(deck, pile, Seq(player1, player2))
 
   "drawCard" should {
     "draw a card" in {
@@ -40,7 +41,7 @@ class GameSpec extends AsyncWordSpec with Matchers:
   "layCard" should {
     val cards: Seq[Card] = Seq(Card(Rank_7, Hearts), Card(Rank_8, Hearts))
     val player2: Player = Player(cards)
-    val sut: Game = Game(deck, pile, Seq(player1, player2))
+    val sut: Game = controller.Game(deck, pile, Seq(player1, player2))
 
     "lay a card" in {
       val result = sut.layCard(1, 0).get
@@ -66,7 +67,7 @@ class GameSpec extends AsyncWordSpec with Matchers:
   "getPlayerCard" should {
     val cards: Seq[Card] = Seq(Card(Rank_7, Hearts), Card(Rank_8, Hearts))
     val player2: Player = Player(cards)
-    val sut: Game = Game(deck, pile, Seq(player1, player2))
+    val sut: Game = controller.Game(deck, pile, Seq(player1, player2))
 
     "get the given card from the player" in {
       val result = sut.getPlayerCard(1, 0).get

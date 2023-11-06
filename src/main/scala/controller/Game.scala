@@ -1,4 +1,6 @@
-package model
+package controller
+
+import model.{Card, Deck, Pile, Player}
 
 import scala.util.{Failure, Random, Success, Try}
 

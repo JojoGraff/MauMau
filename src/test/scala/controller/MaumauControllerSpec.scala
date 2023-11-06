@@ -19,7 +19,7 @@ class MaumauControllerSpec extends AsyncWordSpec with Matchers:
   val pile: Pile = Pile(Seq())
   val player1: Player = Player(Seq())
   val player2: Player = Player(Seq())
-  val game: Game = Game(deck, pile, Seq(player1, player2))
+  val game: Game = controller.Game(deck, pile, Seq(player1, player2))
   val maumauController: MaumauController = MaumauController(game)
 
   "drawCard" should {
@@ -36,7 +36,7 @@ class MaumauControllerSpec extends AsyncWordSpec with Matchers:
   "layCard" should {
     val cards: Seq[Card] = Seq(Card(Rank_7, Hearts), Card(Rank_8, Hearts))
     val player2: Player = Player(cards)
-    val game: Game = Game(deck, pile, Seq(player1, player2))
+    val game: Game = controller.Game(deck, pile, Seq(player1, player2))
     val maumauController: MaumauController = MaumauController(game)
 
     "lay a card for player2" in {
