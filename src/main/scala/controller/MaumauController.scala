@@ -1,6 +1,6 @@
 package controller
 
-import model.{Deck, Player}
+import model.{Card, Deck, Player}
 
 import scala.util.{Failure, Random, Success, Try}
 
@@ -11,6 +11,11 @@ class MaumauController(var game: Game):
         this.game = game
         Success("draw card from pile")
       case Failure(message) => Failure(message)
+
+  def layCard(playerIndex: Int, card: Card): Try[String] =
+    game
+      .getPlayerCardIndex(playerIndex, card)
+      .flatMap(cardIndex => layCard(playerIndex, cardIndex))
 
   def layCard(playerIndex: Int, cardIndex: Int): Try[String] =
     game.layCard(playerIndex, cardIndex) match

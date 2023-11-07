@@ -1,6 +1,7 @@
 package model
 
 import controller.Game
+import model.Card.{h7, hK}
 import model.Rank.{Rank_7, Rank_8}
 import model.Symbol.Hearts
 import org.mockito.Mockito.when
@@ -83,6 +84,30 @@ class GameSpec extends AsyncWordSpec with Matchers:
 
     "fail if cardIndex is out of range for given playerIndex" in {
       val result = sut.getPlayerCard(0, 10)
+
+      result shouldBe a[Failure[_]]
+    }
+  }
+
+  "getPlayerCardIndex" should {
+    val cards: Seq[Card] = Seq(Card.h7, Card.hA)
+    val player2: Player = Player(cards)
+    val sut: Game = controller.Game(deck, pile, Seq(player1, player2))
+
+    "get the given card index from the player" in {
+      val result = sut.getPlayerCardIndex(1, h7).get
+
+      result shouldEqual 0
+    }
+
+    "fail if playerIndex is out of range" in {
+      val result = sut.getPlayerCardIndex(10, h7)
+
+      result shouldBe a[Failure[_]]
+    }
+
+    "fail if card is not in players possession" in {
+      val result = sut.getPlayerCardIndex(0, Card.hK)
 
       result shouldBe a[Failure[_]]
     }

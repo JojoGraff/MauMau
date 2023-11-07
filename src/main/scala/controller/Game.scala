@@ -35,3 +35,9 @@ case class Game(deck: Deck, pile: Pile, players: Seq[Player]):
       player <- playerTry(playerIndex)
       card <- player.cardTry(cardIndex)
     yield card
+
+  def getPlayerCardIndex(playerIndex: Int, card: Card): Try[Int] =
+    for
+      player <- playerTry(playerIndex)
+      cardIndex <- player.cardIndexTry(card)
+    yield cardIndex

@@ -19,3 +19,7 @@ case class Player(cards: Seq[Card]):
   def cardTry(cardIndex: Int): Try[Card] = cards.lift(cardIndex) match
     case None       => Failure(new IndexOutOfBoundsException(s"Card $cardIndex is not given"))
     case Some(card) => Success(card)
+
+  def cardIndexTry(card: Card): Try[Int] = cards.indexOf(card) match
+    case index if index >= 0 => Success(index)
+    case _                   => Failure(new IllegalArgumentException(s"Card $card not found"))
