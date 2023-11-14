@@ -23,7 +23,8 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
     p1.draw(1)
     p2.draw(2)
     // if player1 has card h7
-    p1.lay(h7)
+    p1 lay h7
+
 
   def action(execute: () => Try[String]): Unit =
 

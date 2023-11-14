@@ -5,4 +5,4 @@ class Rule(game: Game):
     val card = game.getPlayerCard(playerIndex, cardIndex).toOption
     val cardPile = game.pile.cards.head
 
-    card.map(a => a.sameColour(cardPile)).get
+    card.map(card => card.sameColour(cardPile)).get
