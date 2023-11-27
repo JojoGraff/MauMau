@@ -8,6 +8,48 @@ case class Card(rank: Rank, symbol: Symbol):
   def sameColour(card: Card): Boolean = this.symbol.sameColour(card.symbol)
 
 object Card:
+
+
+  def fromString(cardString: String): Option[Card] = cardString.toLowerCase match {
+    case "h7" => Some(Card.h7)
+    case "h8" => Some(Card.h8)
+    case "h9" => Some(Card.h9)
+    case "h10" => Some(Card.h10)
+    case "hJ" => Some(Card.hJ)
+    case "hQ" => Some(Card.hQ)
+    case "hK" => Some(Card.hK)
+    case "hA" => Some(Card.hA)
+
+    case "t7" => Some(Card.t7)
+    case "t8" => Some(Card.t8)
+    case "t9" => Some(Card.t9)
+    case "t10" => Some(Card.t10)
+    case "tJ" => Some(Card.tJ)
+    case "tQ" => Some(Card.tQ)
+    case "tK" => Some(Card.tK)
+    case "tA" => Some(Card.tA)
+
+    case "c7" => Some(Card.c7)
+    case "c8" => Some(Card.c8)
+    case "c9" => Some(Card.c9)
+    case "c10" => Some(Card.c10)
+    case "cJ" => Some(Card.cJ)
+    case "cQ" => Some(Card.cQ)
+    case "cK" => Some(Card.cK)
+    case "cA" => Some(Card.cA)
+
+    case "p7" => Some(Card.p7)
+    case "p8" => Some(Card.p8)
+    case "p9" => Some(Card.p9)
+    case "p10" => Some(Card.p10)
+    case "pJ" => Some(Card.pJ)
+    case "pQ" => Some(Card.pQ)
+    case "pK" => Some(Card.pK)
+    case "pA" => Some(Card.pA)
+
+    case _ => None
+  }
+
   val h7: Card = Card(Rank.Rank_7, Symbol.Hearts)
   val h8: Card = Card(Rank.Rank_8, Symbol.Hearts)
   val h9: Card = Card(Rank.Rank_9, Symbol.Hearts)

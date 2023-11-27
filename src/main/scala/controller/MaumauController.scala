@@ -1,7 +1,6 @@
 package controller
 
-import model.{Card, Deck, Player}
-
+import model.{Card, Deck, Move, Player, MoveEnum}
 import scala.util.{Failure, Random, Success, Try}
 
 class MaumauController(var game: Game):
@@ -23,3 +22,16 @@ class MaumauController(var game: Game):
         this.game = game
         Success("lay card down")
       case Failure(message) => Failure(message)
+
+
+  def executeMove(move: Move): Try[String] = {
+
+    move.moveType match
+      case MoveEnum.PLAY =>
+        val card: Option[Card] = Card.fromString(move.card.get)
+        card match
+          case Some(realCard) =>
+            layCard(move.playerNumber, realCard)
+            Success("lay card down")
+          case None => Failure(new RuntimeException("Error"))
+  }
