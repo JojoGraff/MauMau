@@ -1,5 +1,4 @@
 package model
 
-enum MoveEnum {
+enum MoveEnum:
   case PLAY, DRAW, MAU, MAUMAU
-}

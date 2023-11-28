@@ -7,17 +7,13 @@ import scala.util.Random
 
 @main def main(): Unit =
 
-
   val input = "Player 1 plays the card pA"
   val result = DSLParser.parseMove(input)
 
-  result match {
+  result match
     case DSLParser.Success(move, _) => println(s"Parsing successful: ${move}")
-    case DSLParser.Failure(msg, _) => println(s"Parsing failed: $msg")
-    case DSLParser.Error(msg, _) => println(s"Error: $msg")
-  }
-
-
+    case DSLParser.Failure(msg, _)  => println(s"Parsing failed: $msg")
+    case DSLParser.Error(msg, _)    => println(s"Error: $msg")
 
   val random = Random()
   val deck = Deck(random)
