@@ -2,6 +2,7 @@ package view
 
 import com.typesafe.scalalogging.LazyLogging
 import controller.{Game, MaumauController}
+import dsl.PlayerDSL
 import model.Card
 import model.Card.h7
 import model.Rank.Rank_7

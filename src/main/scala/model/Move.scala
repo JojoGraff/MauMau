@@ -1,6 +1,7 @@
 package model
 
-case class Move (moveType: MoveEnum,playerNumber: Int, action: Option[String], card: Option[String], drawAmount: Option[Int]) {
+trait Move ()
+case class LayMove (playerNumber: Int, card: Card) extends Move{}
 
-}
+case class DrawMove (playerNumber: Int, drawAmount: Int) extends Move{}
 

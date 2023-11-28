@@ -1,4 +1,5 @@
-import controller.{DSLParser, Game, MaumauController}
+import controller.{Game, MaumauController}
+import dsl.DSLParser
 import model.{Card, Deck, Pile, Player}
 import view.Tui
 
@@ -7,7 +8,7 @@ import scala.util.Random
 @main def main(): Unit =
 
 
-  val input = "Player 4 plays the card pA"
+  val input = "Player 1 plays the card pA"
   val result = DSLParser.parseMove(input)
 
   result match {

@@ -3,14 +3,14 @@ package model
 import model.Rank.{Rank_8, Rank_9}
 
 case class Card(rank: Rank, symbol: Symbol):
-  override def toString = s"${rank.displayName}${symbol.displayName}"
+  override def toString = s"${symbol.displayName}${rank.displayName}"
 
   def sameColour(card: Card): Boolean = this.symbol.sameColour(card.symbol)
 
 object Card:
 
 
-  def fromString(cardString: String): Option[Card] = cardString.toLowerCase match {
+  def fromString(cardString: String): Option[Card] = cardString match {
     case "h7" => Some(Card.h7)
     case "h8" => Some(Card.h8)
     case "h9" => Some(Card.h9)
