@@ -4,40 +4,13 @@ import view.Tui
 
 import scala.util.Random
 
-@main def hello(): Unit =
+@main def main(): Unit =
 
 
-  val input = "Player 4 plays the card ace"
+  val input = "Player 4 plays the card pA"
   val result = DSLParser.parseMove(input)
 
   result match {
-    case DSLParser.Success(move, _) => println(s"Parsing successful: ${move}")
-    case DSLParser.Failure(msg, _) => println(s"Parsing failed: $msg")
-    case DSLParser.Error(msg, _) => println(s"Error: $msg")
-  }
-
-  val input1 = "Player 4 draws 1 card/s"
-  val result1 = DSLParser.parseMove(input1)
-
-  result1 match {
-    case DSLParser.Success(move, _) => println(s"Parsing successful: $move")
-    case DSLParser.Failure(msg, _) => println(s"Parsing failed: $msg")
-    case DSLParser.Error(msg, _) => println(s"Error: $msg")
-  }
-
-  val input2 = "Player 2 says Mau"
-  val result2 = DSLParser.parseMove(input2)
-
-  result2 match {
-    case DSLParser.Success(move, _) => println(s"Parsing successful: ${move}")
-    case DSLParser.Failure(msg, _) => println(s"Parsing failed: $msg")
-    case DSLParser.Error(msg, _) => println(s"Error: $msg")
-  }
-
-  val input3 = "Player 2 says MauMau"
-  val result3 = DSLParser.parseMove(input3)
-
-  result3 match {
     case DSLParser.Success(move, _) => println(s"Parsing successful: ${move}")
     case DSLParser.Failure(msg, _) => println(s"Parsing failed: $msg")
     case DSLParser.Error(msg, _) => println(s"Error: $msg")
@@ -54,5 +27,7 @@ import scala.util.Random
   val game = controller.Game(deck, pile, Seq(player1, player2))
   val maumauController = MaumauController(game)
   val tui = Tui(maumauController)
+
+  tui.runMove(result.get)
 
   tui.loop()

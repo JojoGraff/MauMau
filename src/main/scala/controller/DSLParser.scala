@@ -1,6 +1,7 @@
 package controller
 
 import model.{ Move, MoveEnum}
+import view.PlayerDSL
 
 import scala.language.postfixOps
 import scala.util.parsing.combinator.*
@@ -8,14 +9,18 @@ import scala.util.parsing.combinator.*
 
 object DSLParser extends RegexParsers {
 
+
   private def integer: Parser[Int] = """\d+""".r ^^ (_.toInt)
 
   private def move: Parser[String] =  "plays" | "removes"
 
   private def text: Parser[String] =  """\b[a-zA-Z]+\b""".r
 
+  private def card: Parser[String] = """^[h|p|c|s]([7|8|9|J|K|Q|A]| ?10)$""".r
+
+
   private def playParse: Parser[Move] =
-    "Player" ~> integer ~ move ~ "the card" ~ text ^^ {
+    "Player" ~> integer ~ move ~ "the card" ~ card ^^ {
       case playerNumber ~ action ~ _ ~ cardName => Move(MoveEnum.PLAY, playerNumber, Some(action), Some(cardName), None)
     }
 

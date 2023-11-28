@@ -6,6 +6,7 @@ import model.Card
 import model.Card.h7
 import model.Rank.Rank_7
 import model.Symbol.Pikes
+import model.Move
 
 import scala.language.postfixOps
 import scala.util.{Failure, Success, Try}
@@ -26,6 +27,9 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
     p1 lay h7
 
 
+  def runMove(move: Move): Unit = {
+    action(() => maumauController.executeMove(move))
+  }
   def action(execute: () => Try[String]): Unit =
 
     val message = wrapResult(execute)
