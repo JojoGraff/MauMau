@@ -11,8 +11,8 @@ import scala.util.Random
 
   result match
     case DSLParser.Success(move, _) => println(s"Parsing successful: ${move}")
-    case DSLParser.Failure(msg, _) => println(s"Parsing failed: $msg")
-    case DSLParser.Error(msg, _) => println(s"Error: $msg")
+    case DSLParser.Failure(msg, _)  => println(s"Parsing failed: $msg")
+    case DSLParser.Error(msg, _)    => println(s"Error: $msg")
 
   val random = Random()
   val deck = Deck(random)

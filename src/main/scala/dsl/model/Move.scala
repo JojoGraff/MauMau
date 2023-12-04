@@ -1,6 +1,6 @@
 package dsl.model
 
-import maumau.model.{Card}
+import maumau.model.Card
 
 trait Move()
 case class LayMove(playerNumber: Int, card: Card) extends Move {}
