@@ -20,12 +20,12 @@ object DSLParser extends RegexParsers:
 
   private def playParse: Parser[Move] =
     "Player" ~> integer ~ "plays the card" ~ card ^^ { case playerNumber ~ _ ~ cardName =>
-      LayMove(playerNumber -1, cardName.get)
+      LayMove(playerNumber - 1, cardName.get)
     }
 
   private def drawParse: Parser[Move] =
     "Player" ~> integer ~ "draws" ~ integer ~ "card/s" ^^ { case playerNumber ~ _ ~ amount ~ _ =>
-      DrawMove(playerNumber -1 , amount)
+      DrawMove(playerNumber - 1, amount)
     }
 
   /*  private def mauParse: Parser[Move] =

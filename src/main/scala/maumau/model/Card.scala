@@ -12,7 +12,7 @@ object Card:
   given fromStringToCard: Conversion[String, Option[Card]] with
     def apply(input: String): Option[Card] =
       allCards.find(card => card.toString.equals(input))
-  
+
   val h7: Card = Card(Rank.Rank_7, Symbol.Hearts)
   val h8: Card = Card(Rank.Rank_8, Symbol.Hearts)
   val h9: Card = Card(Rank.Rank_9, Symbol.Hearts)
@@ -49,41 +49,37 @@ object Card:
   val pK: Card = Card(Rank.King, Symbol.Pikes)
   val pA: Card = Card(Rank.Ace, Symbol.Pikes)
 
-
   val allCards: Seq[Card] = List(
-  h7,
-  h8,
-  h9,
-  h10,
-  hJ,
-  hQ,
-  hK,
-  hA,
-
-  t7,
-  t8,
-  t9,
-  t10,
-  tJ,
-  tQ,
-  tK,
-  tA,
-
-  c7,
-  c8,
-  c9,
-  c10,
-  cJ,
-  cQ,
-  cK,
-  cA,
-
-  p7,
-  p8,
-  p9,
-  p10,
-  pJ,
-  pQ,
-  pK,
-  pA,
+    h7,
+    h8,
+    h9,
+    h10,
+    hJ,
+    hQ,
+    hK,
+    hA,
+    t7,
+    t8,
+    t9,
+    t10,
+    tJ,
+    tQ,
+    tK,
+    tA,
+    c7,
+    c8,
+    c9,
+    c10,
+    cJ,
+    cQ,
+    cK,
+    cA,
+    p7,
+    p8,
+    p9,
+    p10,
+    pJ,
+    pQ,
+    pK,
+    pA
   )
