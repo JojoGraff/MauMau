@@ -1,6 +1,7 @@
 package maumau.view
 
 import com.typesafe.scalalogging.LazyLogging
+import dsl.DSLParser
 import dsl.model.Move
 import maumau.controller.MaumauController
 import maumau.model.Card
@@ -10,32 +11,32 @@ import maumau.model.Symbol.Pikes
 
 import scala.language.postfixOps
 import scala.util.{Failure, Success, Try}
+import scala.io.StdIn.readLine
 
 case class Tui(maumauController: MaumauController) extends LazyLogging:
 
+  var moveCount = 0
   def loop(): Unit =
-    action(() => maumauController.drawCard(1, 1))
-    action(() => maumauController.drawCard(1, 1))
-    action(() => maumauController.layCard(1, 1))
 
-  def runMove(move: Move): Unit =
-    action(() => maumauController.executeMove(move))
+    // TODO use a loop
+    status()
 
-  def action(execute: () => Try[String]): Unit =
+    val input = "Player 1 plays the card pA" // TODO use readInput()
+    val result = DSLParser.parseMove(input)
+    result match
+      case DSLParser.Success(move, _) => action(move)
+      case DSLParser.Failure(msg, _) => logger.info(s"Parsing failed: $msg")
+      case DSLParser.Error(msg, _) => logger.error(s"Error: $msg")
 
-    val message = wrapResult(execute)
-    drawCards()
-    logger.info(s"Status:$message")
+    moveCount = moveCount+1
 
-  def drawCards(): Unit =
-    logger.info("Maumau")
+  def action(move: Move): Unit =
+    maumauController.executeMove(move) match
+      case Success(message) => logger.info(s"Status:$message")
+      case Failure(exception) => logger.error("Error", exception)
+
+  def status(): Unit =
+    logger.info(s"Maumau (move $moveCount)")
     logger.info(s"Pile:${maumauController.game.pile.display}")
     maumauController.game.players.zipWithIndex
       .foreach((player, i) => logger.info(player.cards.foldLeft(s"Player $i:")((card1, card2) => card1 + " " + card2)))
-
-  private def wrapResult(execute: () => Try[String]): String =
-    execute() match
-      case Success(message) => message
-      case Failure(message) =>
-        logger.error(message.getMessage, cause = message)
-        message.getMessage

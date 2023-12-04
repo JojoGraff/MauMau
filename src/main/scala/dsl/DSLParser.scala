@@ -18,12 +18,12 @@ object DSLParser extends RegexParsers:
 
   private def playParse: Parser[Move] =
     "Player" ~> integer ~ "plays the card" ~ card ^^ { case playerNumber ~ _ ~ cardName =>
-      LayMove(playerNumber, Card.fromString(cardName).get)
+      LayMove(playerNumber -1, Card.fromString(cardName).get)
     }
 
   private def drawParse: Parser[Move] =
     "Player" ~> integer ~ "draws" ~ integer ~ "card/s" ^^ { case playerNumber ~ _ ~ amount ~ _ =>
-      DrawMove(playerNumber, amount)
+      DrawMove(playerNumber -1 , amount)
     }
 
   /*  private def mauParse: Parser[Move] =
