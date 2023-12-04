@@ -15,27 +15,33 @@ import scala.io.StdIn.readLine
 
 case class Tui(maumauController: MaumauController) extends LazyLogging:
 
-  var moveCount = 0
   def loop(): Unit =
+    val inputs = List(
+      "Player 1 plays the card pA",
+      "Player 2 plays the card pJ"
+    )
 
-    // TODO use a loop
-    status()
+    var moveCount = 0
+    status(moveCount)
+    // TODO use endless loop
+    for(input <- inputs) {
+      // TODO use readInput() instead of input
+      DSLParser.parseMove(input) match
+        case DSLParser.Success(move, _) => action(move, moveCount)
+        case DSLParser.Failure(msg, _) => logger.info(s"Parsing failed: $msg")
+        case DSLParser.Error(msg, _) => logger.error(s"Error: $msg")
+      moveCount = moveCount+1
 
-    val input = "Player 1 plays the card pA" // TODO use readInput()
-    val result = DSLParser.parseMove(input)
-    result match
-      case DSLParser.Success(move, _) => action(move)
-      case DSLParser.Failure(msg, _) => logger.info(s"Parsing failed: $msg")
-      case DSLParser.Error(msg, _) => logger.error(s"Error: $msg")
+      status(moveCount)
+      logger.info(s"Action: $input")
+    }
 
-    moveCount = moveCount+1
-
-  def action(move: Move): Unit =
+  private def action(move: Move, moveCount : Int): Unit =
     maumauController.executeMove(move) match
       case Success(message) => logger.info(s"Status:$message")
       case Failure(exception) => logger.error("Error", exception)
 
-  def status(): Unit =
+  private def status(moveCount : Int): Unit =
     logger.info(s"Maumau (move $moveCount)")
     logger.info(s"Pile:${maumauController.game.pile.display}")
     maumauController.game.players.zipWithIndex
