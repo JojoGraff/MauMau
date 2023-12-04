@@ -21,4 +21,10 @@ class CardSpec extends AsyncWordSpec with Matchers:
     "return short display name" in {
       Card(Rank.Rank_7, Hearts).toString shouldBe "h7"
     }
+
+    "have a auto conversion from string to card" in {
+      val result : Option[Card] = "h8"
+
+      result shouldBe Some(Card.h8)
+    }
   }
