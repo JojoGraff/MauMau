@@ -1,4 +1,3 @@
-
 import maumau.controller.{Game, MaumauController}
 import maumau.model.{Deck, Pile, Player}
 import maumau.view.Tui

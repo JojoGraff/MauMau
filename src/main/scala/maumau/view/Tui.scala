@@ -17,15 +17,6 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
     action(() => maumauController.drawCard(1, 1))
     action(() => maumauController.layCard(1, 1))
 
-    logger.info("DSL execution")
-    val p1 = PlayerDSL(1)(using maumauController)
-    val p2 = PlayerDSL(1)(using maumauController)
-    p1.draw(1)
-    p2.draw(2)
-    // if player1 has card h7
-    p1 lay h7
-
-
   def action(execute: () => Try[String]): Unit =
 
     val message = wrapResult(execute)
