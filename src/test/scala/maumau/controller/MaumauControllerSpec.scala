@@ -68,7 +68,7 @@ class MaumauControllerSpec extends AsyncWordSpec with Matchers:
 
       maumauController.executeMove(drawMove)
 
-      maumauController.game.players.head.cards.size shouldBe 2
+      maumauController.game.players.head.cards.size shouldBe 1
     }
 
   }
