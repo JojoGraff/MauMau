@@ -1,9 +1,11 @@
 package maumau.controller
 
+import dsl.model.{DrawMove, LayMove}
 import maumau.model.{Card, Deck, Pile, Player}
 import maumau.model.Rank.*
 import maumau.model.Symbol.*
-import org.mockito.Mockito.when
+import org.mockito.ArgumentMatchers.anyInt
+import org.mockito.Mockito.{verify, when}
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AsyncWordSpec
@@ -17,7 +19,7 @@ class MaumauControllerSpec extends AsyncWordSpec with Matchers:
   when(randomMock.nextInt).thenReturn(1)
   val deck: Deck = Deck(randomMock)
   val pile: Pile = Pile(Seq())
-  val player1: Player = Player(Seq())
+  val player1: Player = Player(Seq(Card.pJ))
   val player2: Player = Player(Seq())
   val game: Game = Game(deck, pile, Seq(player1, player2))
   val maumauController: MaumauController = MaumauController(game)
@@ -49,4 +51,24 @@ class MaumauControllerSpec extends AsyncWordSpec with Matchers:
     "fail if index is out of range" in {
       maumauController.layCard(1, 10) shouldBe a[Failure[_]]
     }
+  }
+
+  "executeMove" should {
+
+    "execute a lay move" in {
+    val layMove = LayMove(0,Card.pJ)
+
+    maumauController.executeMove(layMove)
+
+    maumauController.game.pile.display shouldBe Card.pJ.toString
+    }
+
+    "execute a draw move" in {
+      val drawMove = DrawMove(0, 1)
+
+      maumauController.executeMove(drawMove)
+
+      maumauController.game.players.head.cards.size shouldBe 2
+    }
+
   }

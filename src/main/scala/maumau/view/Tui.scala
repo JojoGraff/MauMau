@@ -37,7 +37,7 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
 
   private def action(move: Move, moveCount: Int): Unit =
     maumauController.executeMove(move) match
-      case Success(message)   => logger.info(s"Status:$message")
+      case Success(message)   =>
       case Failure(exception) => logger.error("Error", exception)
 
   private def status(moveCount: Int): Unit =
