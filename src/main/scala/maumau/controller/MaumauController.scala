@@ -1,5 +1,6 @@
 package maumau.controller
 
+import dsl.model.{LayMove, Move}
 import maumau.controller.Game
 import maumau.model.{Card, Deck, Player}
 
@@ -24,3 +25,14 @@ class MaumauController(var game: Game):
         this.game = game
         Success("lay card down")
       case Failure(message) => Failure(message)
+
+  def executeMove(move: Move): Try[String] =
+    move match
+      case layMove: LayMove =>
+        layCard(layMove.playerNumber, layMove.card)
+    /*        val card: Option[Card] = Card.fromString(move.card.get)
+        card match
+          case Some(realCard) =>
+            layCard(move.playerNumber, realCard)
+            Success("lay card down")
+          case None => Failure(new RuntimeException("Error"))*/

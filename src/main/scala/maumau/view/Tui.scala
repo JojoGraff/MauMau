@@ -1,6 +1,7 @@
 package maumau.view
 
 import com.typesafe.scalalogging.LazyLogging
+import dsl.model.Move
 import maumau.controller.MaumauController
 import maumau.model.Card
 import maumau.model.Card.h7
@@ -16,6 +17,9 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
     action(() => maumauController.drawCard(1, 1))
     action(() => maumauController.drawCard(1, 1))
     action(() => maumauController.layCard(1, 1))
+
+  def runMove(move: Move): Unit =
+    action(() => maumauController.executeMove(move))
 
   def action(execute: () => Try[String]): Unit =
 

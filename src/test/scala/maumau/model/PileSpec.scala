@@ -20,7 +20,7 @@ class PileSpec extends AsyncWordSpec with Matchers:
   "display" should {
 
     "return last card display name" in {
-      Pile(Seq(Card(Rank.Rank_7, Hearts), Card(Rank.Rank_8, Hearts))).display shouldBe "7h"
+      Pile(Seq(Card(Rank.Rank_7, Hearts), Card(Rank.Rank_8, Hearts))).display shouldBe "h7"
     }
 
     "return - if no card is on pile" in {

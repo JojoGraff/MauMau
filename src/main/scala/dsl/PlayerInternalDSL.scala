@@ -1,4 +1,4 @@
-package maumau.view
+package dsl
 
 import com.typesafe.scalalogging.LazyLogging
 import maumau.controller.MaumauController

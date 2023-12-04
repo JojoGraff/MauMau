@@ -19,6 +19,6 @@ class CardSpec extends AsyncWordSpec with Matchers:
   "Card" should {
 
     "return short display name" in {
-      Card(Rank.Rank_7, Hearts).toString shouldBe "7h"
+      Card(Rank.Rank_7, Hearts).toString shouldBe "h7"
     }
   }

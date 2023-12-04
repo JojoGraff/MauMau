@@ -1,5 +1,6 @@
-package maumau.view
+package dsl
 
+import dsl.PlayerInternalDSL
 import maumau.controller.{Game, MaumauController}
 import maumau.model.Card.c7
 import maumau.model.Rank.*
