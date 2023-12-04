@@ -1,7 +1,7 @@
-package model
+package maumau.model
 
-import model.Rank.*
-import model.Symbol.*
+import maumau.model.Rank.*
+import maumau.model.Symbol.*
 import org.mockito.Mockito.{reset, when}
 import org.scalactic.Fail
 import org.scalatest.flatspec.AnyFlatSpec

@@ -1,8 +1,8 @@
-package controller
+package maumau.controller
 
-import model.{Rank, Symbol, *}
-import model.Rank.*
-import model.Symbol.*
+import maumau.model.{Card, Deck, Pile, Player}
+import maumau.model.Rank.*
+import maumau.model.Symbol.*
 import org.mockito.Mockito.when
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
@@ -19,13 +19,13 @@ class RuleSpec extends AsyncWordSpec with Matchers:
   val pile: Pile = Pile(Seq())
   val player1: Player = Player(Seq())
   val player2: Player = Player(Seq())
-  val game: Game = controller.Game(deck, pile, Seq(player1, player2))
+  val game: Game = Game(deck, pile, Seq(player1, player2))
 
   "valide" should {
     "same symbole" in {
       val pile: Pile = Pile(Seq(Card(Rank_7, Hearts)))
       val player1: Player = Player(Seq(Card(Rank_8, Hearts)))
-      val game: Game = controller.Game(deck, pile, Seq(player1))
+      val game: Game = Game(deck, pile, Seq(player1))
 
       val rule = Rule(game)
 

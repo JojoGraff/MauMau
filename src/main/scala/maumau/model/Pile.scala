@@ -1,4 +1,4 @@
-package model
+package maumau.model
 
 case class Pile(cards: Seq[Card]):
 

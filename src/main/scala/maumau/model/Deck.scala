@@ -1,7 +1,7 @@
-package model
+package maumau.model
 
-import model.Rank.*
-import model.Symbol.Hearts
+import maumau.model.Rank.*
+import maumau.model.Symbol.Hearts
 
 import scala.util.Random
 

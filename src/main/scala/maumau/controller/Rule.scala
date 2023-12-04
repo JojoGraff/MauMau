@@ -1,4 +1,6 @@
-package controller
+package maumau.controller
+
+import maumau.controller.Game
 
 class Rule(game: Game):
   def valide(cardIndex: Int, playerIndex: Int): Boolean =

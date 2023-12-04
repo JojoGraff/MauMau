@@ -1,11 +1,11 @@
-package view
+package maumau.view
 
 import com.typesafe.scalalogging.LazyLogging
-import controller.{Game, MaumauController}
-import model.Card
-import model.Card.h7
-import model.Rank.Rank_7
-import model.Symbol.Pikes
+import maumau.controller.MaumauController
+import maumau.model.Card
+import maumau.model.Card.h7
+import maumau.model.Rank.Rank_7
+import maumau.model.Symbol.Pikes
 
 import scala.language.postfixOps
 import scala.util.{Failure, Success, Try}

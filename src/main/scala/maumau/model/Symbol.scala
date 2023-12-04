@@ -1,4 +1,4 @@
-package model
+package maumau.model
 
 enum Symbol(val displayName: String, val color: String):
   case Hearts extends Symbol("h", "red")

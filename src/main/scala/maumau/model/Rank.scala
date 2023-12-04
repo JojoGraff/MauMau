@@ -1,4 +1,4 @@
-package model
+package maumau.model
 
 enum Rank(val displayName: String):
   case Rank_7 extends Rank("7")

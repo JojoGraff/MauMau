@@ -1,6 +1,7 @@
-import controller.{Game, MaumauController}
-import model.{Deck, Pile, Player}
-import view.Tui
+
+import maumau.controller.{Game, MaumauController}
+import maumau.model.{Deck, Pile, Player}
+import maumau.view.Tui
 
 import scala.util.Random
 
@@ -11,7 +12,7 @@ import scala.util.Random
   val pile = Pile(Seq())
   val player1 = Player(Seq())
   val player2 = Player(Seq())
-  val game = controller.Game(deck, pile, Seq(player1, player2))
+  val game = Game(deck, pile, Seq(player1, player2))
   val maumauController = MaumauController(game)
   val tui = Tui(maumauController)
 

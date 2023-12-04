@@ -1,7 +1,8 @@
-package model
+package maumau.model
 
-import model.Rank.Rank_7
-import model.Symbol.Hearts
+import maumau.model.{Card, Deck}
+import maumau.model.Rank.Rank_7
+import maumau.model.Symbol.Hearts
 import org.mockito.Mockito.when
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.funsuite.AnyFunSuite

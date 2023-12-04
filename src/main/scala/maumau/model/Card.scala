@@ -1,6 +1,6 @@
-package model
+package maumau.model
 
-import model.Rank.{Rank_8, Rank_9}
+import maumau.model.Rank.{Rank_8, Rank_9}
 
 case class Card(rank: Rank, symbol: Symbol):
   override def toString = s"${rank.displayName}${symbol.displayName}"

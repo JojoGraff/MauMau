@@ -1,6 +1,6 @@
-package controller
+package maumau.controller
 
-import model.{Card, Deck, Pile, Player}
+import maumau.model.{Card, Deck, Pile, Player}
 
 import scala.util.{Failure, Random, Success, Try}
 

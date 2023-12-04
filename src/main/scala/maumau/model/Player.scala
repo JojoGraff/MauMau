@@ -1,4 +1,4 @@
-package model
+package maumau.model
 
 import scala.util.{Failure, Success, Try}
 

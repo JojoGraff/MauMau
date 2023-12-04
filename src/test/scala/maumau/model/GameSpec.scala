@@ -1,19 +1,15 @@
-package model
+package maumau.model
 
-import controller.Game
-import model.Card.{h7, hK}
-import model.Rank.{Rank_7, Rank_8}
-import model.Symbol.Hearts
-import org.mockito.Mockito.when
-import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.funsuite.AnyFunSuite
+import maumau.controller.Game
+import maumau.model.Card.{h7, hK}
+import maumau.model.Rank.{Rank_7, Rank_8}
+import maumau.model.Symbol.Hearts
 import org.scalatest.matchers.should
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AsyncWordSpec
-import org.scalatestplus.mockito.MockitoSugar.mock
 
 import scala.language.postfixOps
-import scala.util.{Failure, Random, Success}
+import scala.util.{Failure, Random}
 
 class GameSpec extends AsyncWordSpec with Matchers:
 
@@ -22,7 +18,7 @@ class GameSpec extends AsyncWordSpec with Matchers:
   val pile: Pile = Pile(Seq())
   val player1: Player = Player(Seq())
   val player2: Player = Player(Seq())
-  val sut: Game = controller.Game(deck, pile, Seq(player1, player2))
+  val sut: Game = Game(deck, pile, Seq(player1, player2))
 
   "drawCard" should {
     "draw a card" in {
@@ -42,7 +38,7 @@ class GameSpec extends AsyncWordSpec with Matchers:
   "layCard" should {
     val cards: Seq[Card] = Seq(Card(Rank_7, Hearts), Card(Rank_8, Hearts))
     val player2: Player = Player(cards)
-    val sut: Game = controller.Game(deck, pile, Seq(player1, player2))
+    val sut: Game = Game(deck, pile, Seq(player1, player2))
 
     "lay a card" in {
       val result = sut.layCard(1, 0).get
@@ -68,7 +64,7 @@ class GameSpec extends AsyncWordSpec with Matchers:
   "getPlayerCard" should {
     val cards: Seq[Card] = Seq(Card(Rank_7, Hearts), Card(Rank_8, Hearts))
     val player2: Player = Player(cards)
-    val sut: Game = controller.Game(deck, pile, Seq(player1, player2))
+    val sut: Game = Game(deck, pile, Seq(player1, player2))
 
     "get the given card from the player" in {
       val result = sut.getPlayerCard(1, 0).get
@@ -92,7 +88,7 @@ class GameSpec extends AsyncWordSpec with Matchers:
   "getPlayerCardIndex" should {
     val cards: Seq[Card] = Seq(Card.h7, Card.hA)
     val player2: Player = Player(cards)
-    val sut: Game = controller.Game(deck, pile, Seq(player1, player2))
+    val sut: Game = Game(deck, pile, Seq(player1, player2))
 
     "get the given card index from the player" in {
       val result = sut.getPlayerCardIndex(1, h7).get

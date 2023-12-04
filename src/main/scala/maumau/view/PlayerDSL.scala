@@ -1,8 +1,8 @@
-package view
+package maumau.view
 
 import com.typesafe.scalalogging.LazyLogging
-import controller.MaumauController
-import model.Card
+import maumau.controller.MaumauController
+import maumau.model.Card
 
 import scala.util.{Failure, Success}
 
