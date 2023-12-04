@@ -19,6 +19,7 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
     val inputs = List(
       "Player 1 plays the card pA",
       "Player 2 plays the card pJ"
+      // TODO add lay move
     )
 
     var moveCount = 0
@@ -28,8 +29,8 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
       // TODO use readInput() instead of input
       DSLParser.parseMove(input) match
         case DSLParser.Success(move, _) => action(move, moveCount)
-        case DSLParser.Failure(msg, _)  => logger.info(s"Parsing failed: $msg")
-        case DSLParser.Error(msg, _)    => logger.error(s"Error: $msg")
+        case DSLParser.Failure(msg, _)  => throw new IllegalArgumentException(s"Parsing failed: $msg")
+        case DSLParser.Error(msg, _)    => throw new IllegalArgumentException(s"Error: $msg")
       moveCount = moveCount + 1
 
       status(moveCount)
@@ -44,4 +45,4 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
     logger.info(s"Maumau (move $moveCount)")
     logger.info(s"Pile: ${maumauController.game.pile.display}")
     maumauController.game.players.zipWithIndex
-      .foreach((player, i) => logger.info(player.cards.foldLeft(s"Player$i:")((card1, card2) => card1 + " " + card2)))
+      .foreach((player, i) => logger.info(player.cards.foldLeft(s"Player${i+1}:")((card1, card2) => card1 + " " + card2)))
