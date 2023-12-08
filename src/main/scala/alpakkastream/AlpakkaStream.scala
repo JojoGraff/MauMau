@@ -1,4 +1,4 @@
-package stream
+package alpakkastream
 
 import akka.actor.ActorSystem
 import akka.stream.alpakka.file.scaladsl.FileTailSource

@@ -10,7 +10,10 @@ val dependencies = Seq(
   "org.scala-lang.modules" %% "scala-parser-combinators" % "2.3.0",
   // akka streams alpaca
   "com.lightbend.akka" %% "akka-stream-alpakka-file" % "7.0.1",
-  "com.typesafe.akka" %% "akka-stream" % AkkaVersion
+  "com.typesafe.akka" %% "akka-stream" % AkkaVersion,
+  // kafka
+  ("org.apache.kafka" %% "kafka-streams-scala" % "3.6.1").cross(CrossVersion.for3Use2_13),
+  "com.typesafe.akka" %% "akka-stream-kafka" % "4.0.2"
 )
 
 lazy val root = project
