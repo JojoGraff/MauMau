@@ -41,8 +41,10 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
       case Success(message)   =>
       case Failure(exception) => logger.error("Error", exception)
 
-  private def status(moveCount: Int): Unit =
-    logger.info(s"Maumau (move $moveCount)")
+  def status(moveCount: Int = -1): Unit =
+    if moveCount > -1 then
+      logger.info(s"Maumau (move $moveCount)")
+
     logger.info(s"Pile: ${maumauController.game.pile.display}")
     maumauController.game.players.zipWithIndex
       .foreach((player, i) => logger.info(player.cards.foldLeft(s"Player${i+1}:")((card1, card2) => card1 + " " + card2)))

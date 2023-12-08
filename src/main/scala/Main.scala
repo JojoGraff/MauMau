@@ -2,6 +2,7 @@ import dsl.DSLParser
 import maumau.controller.{Game, MaumauController}
 import maumau.model.{Card, Deck, Pile, Player}
 import maumau.view.Tui
+import stream.AlpakkaStream
 
 import scala.util.Random
 
