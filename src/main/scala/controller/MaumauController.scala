@@ -1,6 +1,6 @@
 package controller
 
-import model.{Card, Deck, LayMove, Move, MoveEnum, Player}
+import model.{Card, Deck, DrawMove, LayMove, Move, MoveEnum, Player}
 
 import scala.util.{Failure, Random, Success, Try}
 
@@ -28,6 +28,8 @@ class MaumauController(var game: Game):
     move match
       case layMove: LayMove =>
         layCard(layMove.playerNumber, layMove.card)
+      case drawMove: DrawMove =>
+        drawCard(drawMove.playerNumber, drawMove.drawAmount)
     /*        val card: Option[Card] = Card.fromString(move.card.get)
         card match
           case Some(realCard) =>

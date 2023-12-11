@@ -36,6 +36,6 @@ object DSLParser extends RegexParsers:
       case playerNumber ~ _ => Move(MoveEnum.MAUMAU, playerNumber, None, None, None)
     }*/
 
-  private def completeParse: Parser[Move] = playParse
+  private def completeParse: Parser[Move] = playParse | drawParse
 
   def parseMove(input: String): ParseResult[Move] = parse(completeParse, input)

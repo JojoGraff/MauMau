@@ -10,8 +10,10 @@ case class Game(deck: Deck, pile: Pile, players: Seq[Player]):
     val cards = deck.randomCards(amount)
 
     playerTry(playerIndex)
-      .map(player => player.addCards(cards))
-      .map(newPlayer => this.copy(deck, pile, players.updated(playerIndex, newPlayer)))
+      .map(playerActor => {
+        playerActor ! AddCards(cards)
+        this.copy(deck, pile, players)
+      })
 
   def layCard(playerIndex: Int, cardIndex: Int): Try[Game] =
     for
