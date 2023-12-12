@@ -13,7 +13,11 @@ val dependencies = Seq(
   "com.typesafe.akka" %% "akka-stream" % AkkaVersion,
   // kafka
   ("org.apache.kafka" %% "kafka-streams-scala" % "3.6.1").cross(CrossVersion.for3Use2_13),
-  "com.typesafe.akka" %% "akka-stream-kafka" % "4.0.2"
+  "com.typesafe.akka" %% "akka-stream-kafka" % "4.0.2",
+  // json serializer
+  "io.circe" %% "circe-core" % "0.15.0-M1",
+  "io.circe" %% "circe-generic" % "0.15.0-M1",
+  "io.circe" %% "circe-parser" % "0.15.0-M1",
 )
 
 lazy val root = project
