@@ -1,7 +1,9 @@
 package dsl
 
-import dsl.PlayerDSL
-import model.*
+import dsl.model.{DrawMove, LayMove, Move}
+import maumau.model.*
+
+import maumau.model.Card.fromStringToCard
 
 import scala.language.postfixOps
 import scala.util.parsing.combinator.*
@@ -18,12 +20,12 @@ object DSLParser extends RegexParsers:
 
   private def playParse: Parser[Move] =
     "Player" ~> integer ~ "plays the card" ~ card ^^ { case playerNumber ~ _ ~ cardName =>
-      LayMove(playerNumber, Card.fromString(cardName).get)
+      LayMove(playerNumber - 1, cardName.get)
     }
 
   private def drawParse: Parser[Move] =
     "Player" ~> integer ~ "draws" ~ integer ~ "card/s" ^^ { case playerNumber ~ _ ~ amount ~ _ =>
-      DrawMove(playerNumber, amount)
+      DrawMove(playerNumber - 1, amount)
     }
 
   /*  private def mauParse: Parser[Move] =

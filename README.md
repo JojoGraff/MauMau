@@ -9,3 +9,8 @@ Project for the htwg lecture reactive systems.
 ### Linting
 
 Use ```$ sbt scalafmt``` to automatically format all files.
+
+
+### Kafka
+Using [Kafka Stack](https://github.com/conduktor/kafka-stack-docker-compose)
+```docker compose -f zk-single-kafka-single.yml up```
