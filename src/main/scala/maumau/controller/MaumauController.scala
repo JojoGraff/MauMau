@@ -1,6 +1,7 @@
 package maumau.controller
 
 import dsl.model.{DrawMove, LayMove, Move}
+import dsl.PlayerInternalDSL
 import maumau.controller.Game
 import maumau.model.{Card, Deck, Player}
 
@@ -29,6 +30,9 @@ class MaumauController(var game: Game):
   def executeMove(move: Move): Try[String] =
     move match
       case layMove: LayMove =>
-        layCard(layMove.playerNumber, layMove.card)
+        val player = PlayerInternalDSL(layMove.playerNumber)(using this)
+        player lay layMove.card
       case drawMove: DrawMove =>
-        drawCard(drawMove.playerNumber, drawMove.drawAmount)
+        val player = PlayerInternalDSL(drawMove.playerNumber)(using this)
+        player draw drawMove.drawAmount
+
