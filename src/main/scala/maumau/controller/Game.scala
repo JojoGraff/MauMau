@@ -1,43 +1,98 @@
 package maumau.controller
 
-import maumau.model.{Card, Deck, Pile, Player}
+import maumau.model.{AddCard, AddCards, Card, Deck, GetCard, GetCardIndex, Pile, Player, PlayerActor, RemoveCard}
 
 import scala.util.{Failure, Random, Success, Try}
+import akka.actor.{Actor, ActorRef, ActorSystem, Props}
+import akka.pattern.ask
+import akka.util.Timeout
 
-case class Game(deck: Deck, pile: Pile, players: Seq[Player]):
+import concurrent.duration.DurationInt
+import concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.{Await, Future}
+
+
+case class Game(deck: Deck, pile: Pile, players: Seq[ActorRef]):
 
   def drawCard(playerIndex: Int, amount: Int): Try[Game] =
     val cards = deck.randomCards(amount)
 
-    playerTry(playerIndex)
-      .map(player => player.addCards(cards))
-      .map(newPlayer => this.copy(deck, pile, players.updated(playerIndex, newPlayer)))
+    val playerActor = playerTry(playerIndex)
+
+    playerActor match
+      case Success(value) =>
+        value ! AddCards(cards)
+    Try(this.copy(deck, pile, players))
 
   def layCard(playerIndex: Int, cardIndex: Int): Try[Game] =
-    for
-      player <- playerTry(playerIndex)
-      (newPlayer, newPile) <- removeCard(player, cardIndex)
-    yield this.copy(deck, newPile, players.updated(playerIndex, newPlayer))
 
-  private def removeCard(player: Player, cardIndex: Int): Try[(Player, Pile)] =
-    player.removeCard(cardIndex).map { (newPlayer, card) =>
-      val newPile = pile.add(card)
-      (newPlayer, newPile)
+    val playerActorTry = playerTry(playerIndex)
+
+    playerActorTry match {
+      case Success(playerActor) =>
+        implicit val timeout: Timeout = Timeout(1.seconds)
+        val futureResponse: Future[Any] = playerActor ? RemoveCard(cardIndex)
+
+        val resultTry = Await.result(futureResponse, 5.seconds)
+
+        val newPile = pile.add(resultTry.asInstanceOf[Card])
+
+        Try(this.copy(deck,newPile,players))
+
+      case Failure(exception) =>
+        Failure(exception)
     }
 
-  def playerTry(playerIndex: Int): Try[Player] =
+
+
+  private def playerTry(playerIndex: Int): Try[ActorRef] =
     players.lift(playerIndex) match
       case None         => Failure(new IndexOutOfBoundsException(s"Player $playerIndex is not given"))
       case Some(player) => Success(player)
 
   def getPlayerCard(playerIndex: Int, cardIndex: Int): Try[Card] =
-    for
-      player <- playerTry(playerIndex)
-      card <- player.cardTry(cardIndex)
-    yield card
+
+    val playerActorTry = playerTry(playerIndex)
+
+    playerActorTry match {
+      case Success(playerActor) =>
+        implicit val timeout: Timeout = Timeout(5.seconds)
+        val futureResponse: Future[Any] = playerActor ? GetCard(cardIndex)
+
+        val resultFuture: Future[Try[Card]] = futureResponse.map {
+          case response: Card => Success(response)
+          case _ => Failure(new RuntimeException("Unexpected response type"))
+        }
+
+        val resultTry: Try[Card] = Await.result(resultFuture, 5.seconds)
+
+        resultTry
+
+      case Failure(exception) =>
+        Failure(exception)
+    }
+
 
   def getPlayerCardIndex(playerIndex: Int, card: Card): Try[Int] =
-    for
-      player <- playerTry(playerIndex)
-      cardIndex <- player.cardIndexTry(card)
-    yield cardIndex
+    val playerActorTry = playerTry(playerIndex)
+
+    playerActorTry match {
+      case Success(playerActor) =>
+        implicit val timeout: Timeout = Timeout(5.seconds)
+        val futureResponse: Future[Any] = playerActor ? GetCardIndex(card)
+
+        val resultFuture: Future[Try[Int]] = futureResponse.map {
+          case response: Int => Success(response)
+          case _ => Failure(new RuntimeException("Unexpected response type"))
+        }
+
+        val resultTry: Try[Int] = Await.result(resultFuture, 5.seconds)
+
+        resultTry
+
+      case Failure(exception) =>
+        Failure(exception)
+    }
+
+
+

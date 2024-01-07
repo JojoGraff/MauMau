@@ -63,16 +63,4 @@ class AlpakkaStream(using controller: MaumauController, tui: Tui) extends LazyLo
     }(system.dispatcher)
     .onComplete(_ => system.terminate())(system.dispatcher)
 
-@main def main(): Unit =
-  val random = Random()
-  val deck = Deck(random)
-
-  val pile = Pile(Seq())
-  val player1 = Player(Seq(pA, c7, cJ, cK, h8))
-  val player2 = Player(Seq(c9, p8, t9, tK, pJ))
-  val game = Game(deck, pile, Seq(player1, player2))
-  val maumauController = MaumauController(game)
-  val tui = Tui(maumauController)
-
-  val alpakkaStream = AlpakkaStream(using maumauController, tui)
-  alpakkaStream.run()
+@main def main(): Unit = ???

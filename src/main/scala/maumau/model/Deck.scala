@@ -8,7 +8,7 @@ import scala.util.Random
 class Deck(random: Random):
   def randomCard(): Card = Deck.cards(random.nextInt(Deck.cards.length))
 
-  def randomCards(amount: Int): Seq[Card] = Seq.range(0, amount).map(_ => randomCard())
+  def randomCards(amount: Int): Array[Card] = Array.range(0, amount).map(_ => randomCard())
 
 object Deck:
   val cards: Seq[Card] = Card.allCards
