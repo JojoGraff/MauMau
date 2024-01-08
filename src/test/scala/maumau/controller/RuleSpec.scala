@@ -21,15 +21,15 @@ class RuleSpec extends AsyncWordSpec with Matchers:
   val player2: Player = Player(Seq())
   val game: Game = Game(deck, pile, Seq(player1, player2))
 
-  "valide" should {
-    "same symbole" in {
+  "valid" should {
+    "same symbol" in {
       val pile: Pile = Pile(Seq(Card(Rank_7, Hearts)))
       val player1: Player = Player(Seq(Card(Rank_8, Hearts)))
       val game: Game = Game(deck, pile, Seq(player1))
 
       val rule = Rule(game)
 
-      rule.valide(0, 0) shouldBe true
+      rule.valid(0, 0) shouldBe true
     }
 
   }
