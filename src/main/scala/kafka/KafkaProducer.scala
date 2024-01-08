@@ -15,7 +15,7 @@ import org.apache.kafka.common.serialization.StringSerializer
 
 import scala.concurrent.{ExecutionContextExecutor, Future}
 import scala.util.{Failure, Success}
-object AkkaProducer extends App:
+object KafkaProducer extends App:
   implicit val system: ActorSystem = ActorSystem("producer-sample")
 
   private val producerSettings =

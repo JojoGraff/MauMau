@@ -18,7 +18,7 @@ import java.util
 import scala.concurrent.ExecutionContextExecutor
 import scala.util.{Failure, Success}
 
-object AkkaConsumer extends App, LazyLogging:
+object KafkaConsumer extends App, LazyLogging:
 
   implicit val system: ActorSystem = ActorSystem("consumer-sample")
 
