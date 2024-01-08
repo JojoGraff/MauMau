@@ -41,3 +41,8 @@ case class Game(deck: Deck, pile: Pile, players: Seq[Player]):
       player <- playerTry(playerIndex)
       cardIndex <- player.cardIndexTry(card)
     yield cardIndex
+
+  def getPlayerCardCount(playerIndex: Int): Int =
+    players.lift(playerIndex) match
+      case None => 0
+      case Some(player) => player.cards.size
