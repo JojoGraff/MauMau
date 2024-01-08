@@ -1,5 +1,4 @@
 val scala3Version = "3.3.1"
-
 val AkkaVersion = "2.9.0"
 
 val dependencies = Seq(
@@ -12,7 +11,6 @@ val dependencies = Seq(
   "com.lightbend.akka" %% "akka-stream-alpakka-file" % "7.0.1",
   "com.typesafe.akka" %% "akka-stream" % AkkaVersion,
   // kafka
-  ("org.apache.kafka" %% "kafka-streams-scala" % "3.6.1").cross(CrossVersion.for3Use2_13),
   "com.typesafe.akka" %% "akka-stream-kafka" % "4.0.2",
   // json serializer
   "io.circe" %% "circe-core" % "0.15.0-M1",
