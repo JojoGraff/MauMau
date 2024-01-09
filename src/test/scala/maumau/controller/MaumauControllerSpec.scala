@@ -19,7 +19,7 @@ class MaumauControllerSpec extends AsyncWordSpec with Matchers:
   when(randomMock.nextInt).thenReturn(1)
   val deck: Deck = Deck(randomMock)
   val pile: Pile = Pile(Seq())
-  val player1: Player = Player(Seq(Card.pJ))
+  val player1: Player = Player(Seq(Card.dJ))
   val player2: Player = Player(Seq())
   val game: Game = Game(deck, pile, Seq(player1, player2))
   val maumauController: MaumauController = MaumauController(game)
@@ -56,11 +56,11 @@ class MaumauControllerSpec extends AsyncWordSpec with Matchers:
   "executeMove" should {
 
     "execute a lay move" in {
-    val layMove = LayMove(0,Card.pJ)
+    val layMove = LayMove(0,Card.dJ)
 
     maumauController.executeMove(layMove)
 
-    maumauController.game.pile.display shouldBe Card.pJ.toString
+    maumauController.game.pile.display shouldBe Card.dJ.toString
     }
 
     "execute a draw move" in {

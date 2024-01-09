@@ -16,7 +16,7 @@ object DSLParser extends RegexParsers:
 
   private def text: Parser[String] = """\b[a-zA-Z]+\b""".r
 
-  private def card: Parser[String] = """^[h|p|c|s]([7|8|9|J|K|Q|A]| ?10)$""".r
+  private def card: Parser[String] = """^[c|s|h|d]([7|8|9|J|K|Q|A]| ?10)$""".r
 
   private def playParse: Parser[Move] =
     "Player" ~> integer ~ "plays the card" ~ card ^^ { case playerNumber ~ _ ~ cardName =>

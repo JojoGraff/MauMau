@@ -22,32 +22,32 @@ object Card:
   val hK: Card = Card(Rank.King, Symbol.Hearts)
   val hA: Card = Card(Rank.Ace, Symbol.Hearts)
 
-  val t7: Card = Card(Rank.Rank_7, Symbol.Tiles)
-  val t8: Card = Card(Rank.Rank_8, Symbol.Tiles)
-  val t9: Card = Card(Rank.Rank_9, Symbol.Tiles)
-  val t10: Card = Card(Rank.Rank_10, Symbol.Tiles)
-  val tJ: Card = Card(Rank.Jack, Symbol.Tiles)
-  val tQ: Card = Card(Rank.Queen, Symbol.Tiles)
-  val tK: Card = Card(Rank.King, Symbol.Tiles)
-  val tA: Card = Card(Rank.Ace, Symbol.Tiles)
+  val d7: Card = Card(Rank.Rank_7, Symbol.Diamonds)
+  val d8: Card = Card(Rank.Rank_8, Symbol.Diamonds)
+  val d9: Card = Card(Rank.Rank_9, Symbol.Diamonds)
+  val d10: Card = Card(Rank.Rank_10, Symbol.Diamonds)
+  val dJ: Card = Card(Rank.Jack, Symbol.Diamonds)
+  val dQ: Card = Card(Rank.Queen, Symbol.Diamonds)
+  val dK: Card = Card(Rank.King, Symbol.Diamonds)
+  val dA: Card = Card(Rank.Ace, Symbol.Diamonds)
 
-  val c7: Card = Card(Rank.Rank_7, Symbol.Clover)
-  val c8: Card = Card(Rank.Rank_8, Symbol.Clover)
-  val c9: Card = Card(Rank.Rank_9, Symbol.Clover)
-  val c10: Card = Card(Rank.Rank_10, Symbol.Clover)
-  val cJ: Card = Card(Rank.Jack, Symbol.Clover)
-  val cQ: Card = Card(Rank.Queen, Symbol.Clover)
-  val cK: Card = Card(Rank.King, Symbol.Clover)
-  val cA: Card = Card(Rank.Ace, Symbol.Clover)
+  val c7: Card = Card(Rank.Rank_7, Symbol.Clubs)
+  val c8: Card = Card(Rank.Rank_8, Symbol.Clubs)
+  val c9: Card = Card(Rank.Rank_9, Symbol.Clubs)
+  val c10: Card = Card(Rank.Rank_10, Symbol.Clubs)
+  val cJ: Card = Card(Rank.Jack, Symbol.Clubs)
+  val cQ: Card = Card(Rank.Queen, Symbol.Clubs)
+  val cK: Card = Card(Rank.King, Symbol.Clubs)
+  val cA: Card = Card(Rank.Ace, Symbol.Clubs)
 
-  val p7: Card = Card(Rank.Rank_7, Symbol.Pikes)
-  val p8: Card = Card(Rank.Rank_8, Symbol.Pikes)
-  val p9: Card = Card(Rank.Rank_9, Symbol.Pikes)
-  val p10: Card = Card(Rank.Rank_10, Symbol.Pikes)
-  val pJ: Card = Card(Rank.Jack, Symbol.Pikes)
-  val pQ: Card = Card(Rank.Queen, Symbol.Pikes)
-  val pK: Card = Card(Rank.King, Symbol.Pikes)
-  val pA: Card = Card(Rank.Ace, Symbol.Pikes)
+  val s7: Card = Card(Rank.Rank_7, Symbol.Spades)
+  val s8: Card = Card(Rank.Rank_8, Symbol.Spades)
+  val s9: Card = Card(Rank.Rank_9, Symbol.Spades)
+  val s10: Card = Card(Rank.Rank_10, Symbol.Spades)
+  val sJ: Card = Card(Rank.Jack, Symbol.Spades)
+  val sQ: Card = Card(Rank.Queen, Symbol.Spades)
+  val sK: Card = Card(Rank.King, Symbol.Spades)
+  val sA: Card = Card(Rank.Ace, Symbol.Spades)
 
   val allCards: Seq[Card] = List(
     h7,
@@ -58,14 +58,14 @@ object Card:
     hQ,
     hK,
     hA,
-    t7,
-    t8,
-    t9,
-    t10,
-    tJ,
-    tQ,
-    tK,
-    tA,
+    d7,
+    d8,
+    d9,
+    d10,
+    dJ,
+    dQ,
+    dK,
+    dA,
     c7,
     c8,
     c9,
@@ -74,12 +74,12 @@ object Card:
     cQ,
     cK,
     cA,
-    p7,
-    p8,
-    p9,
-    p10,
-    pJ,
-    pQ,
-    pK,
-    pA
+    s7,
+    s8,
+    s9,
+    s10,
+    sJ,
+    sQ,
+    sK,
+    sA
   )

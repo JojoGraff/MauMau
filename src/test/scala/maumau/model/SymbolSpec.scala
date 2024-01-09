@@ -18,9 +18,9 @@ class SymbolSpec extends AsyncWordSpec with Matchers:
 
   "sameColour" should {
     "identify same colour" in {
-      Hearts.sameColour(Tiles) shouldBe true
-      Pikes.sameColour(Clover) shouldBe true
-      Tiles.sameColour(Clover) shouldBe false
-      Clover.sameColour(Hearts) shouldBe false
+      Hearts.sameColour(Diamonds) shouldBe true
+      Spades.sameColour(Clubs) shouldBe true
+      Diamonds.sameColour(Clubs) shouldBe false
+      Clubs.sameColour(Hearts) shouldBe false
     }
   }

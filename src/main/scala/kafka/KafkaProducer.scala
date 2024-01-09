@@ -23,7 +23,7 @@ object KafkaProducer extends App:
 
   val done: Future[Done] =
     Source(1 to 100)
-      .map(number => LayMove(number, Card.pJ).asInstanceOf[Move])
+      .map(number => LayMove(number, Card.dJ).asInstanceOf[Move])
       .map(moveObject => moveObject.asJson.noSpaces)
       .map(value => new ProducerRecord[String, String]("test", value))
       .runWith(Producer.plainSink(producerSettings))
