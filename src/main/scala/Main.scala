@@ -17,5 +17,5 @@ import scala.util.Random
   val maumauController = MaumauController(game)
   val tui = Tui(maumauController)
 
-  //tui.loop()
+  // tui.loop()
   tui.autoPlay()

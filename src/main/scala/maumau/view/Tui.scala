@@ -15,20 +15,21 @@ import scala.io.StdIn.readLine
 
 case class Tui(maumauController: MaumauController) extends LazyLogging:
 
-  def autoPlay() : Unit =
+  def autoPlay(): Unit =
     var moveCount = 0
     val randomGame = new RandomGame(new Random(), maumauController.game.players.size)
 
     status(moveCount)
     while moveCount < 100 do
       val game = maumauController.game
-      val randomMoveInput = randomGame.createRandomMove(game)
+      val randomMoveInput = randomGame
+        .createRandomMove(game)
         .asInputString()
-      
+
       DSLParser.parseMove(randomMoveInput) match
         case DSLParser.Success(move, _) => action(move, moveCount)
-        case DSLParser.Failure(msg, _) => throw new IllegalArgumentException(s"Parsing failed: $msg")
-        case DSLParser.Error(msg, _) => throw new IllegalArgumentException(s"Error: $msg")
+        case DSLParser.Failure(msg, _)  => throw new IllegalArgumentException(s"Parsing failed: $msg")
+        case DSLParser.Error(msg, _)    => throw new IllegalArgumentException(s"Error: $msg")
 
       moveCount = moveCount + 1
       status(moveCount)
@@ -67,6 +68,4 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
 
     logger.info(s"Pile: ${maumauController.game.pile.display}")
     maumauController.game.players.zipWithIndex
-      .foreach((player, i) =>
-        logger.info(player.cards.foldLeft(s"Player$i:")((card1, card2) => card1 + " " + card2))
-      )
+      .foreach((player, i) => logger.info(player.cards.foldLeft(s"Player$i:")((card1, card2) => card1 + " " + card2)))

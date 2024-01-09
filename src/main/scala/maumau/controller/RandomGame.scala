@@ -20,7 +20,7 @@ class RandomGame(random: Random, playerCount: Int):
 
     random.nextInt(1) match
       case num if num == 0 =>
-        val randomCardIndex = random.nextInt(cardCount -1)
+        val randomCardIndex = random.nextInt(cardCount - 1)
         game.getPlayerCard(actualPlayerNumber, randomCardIndex) match
           case Failure(exception) => throw exception
           case Success(card) =>
