@@ -26,5 +26,5 @@ class RandomGame(random: Random, playerCount: Int):
           case Success(card) =>
             LayMove(playerNumber = actualPlayerNumber, card = card)
       case num if num == 1 =>
-        val randomAmount = random.nextInt(2)
+        val randomAmount = random.nextInt(2) + 1
         DrawMove(playerNumber = actualPlayerNumber, randomAmount)
