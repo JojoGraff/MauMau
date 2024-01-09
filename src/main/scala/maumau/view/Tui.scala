@@ -26,6 +26,7 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
         .createRandomMove(game)
         .asInputString()
 
+      logger.info(s"TODO: $randomMoveInput")
       DSLParser.parseMove(randomMoveInput) match
         case DSLParser.Success(move, _) => action(move, moveCount)
         case DSLParser.Failure(msg, _)  => throw new IllegalArgumentException(s"Parsing failed: $msg")
@@ -35,26 +36,27 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
       status(moveCount)
       logger.info(s"Action: ${randomMoveInput}")
   def loop(): Unit =
-
-    val inputs = List(
-      "Player 0 plays the card sA",
-      "Player 1 plays the card dJ",
-      "Player 0 draws 1 card/s"
-    )
-
     var moveCount = 0
     status(moveCount)
-    // TODO use endless loop
-    for input <- inputs do
-      // TODO use readInput() instead of input
-      DSLParser.parseMove(input) match
-        case DSLParser.Success(move, _) => action(move, moveCount)
-        case DSLParser.Failure(msg, _)  => throw new IllegalArgumentException(s"Parsing failed: $msg")
-        case DSLParser.Error(msg, _)    => throw new IllegalArgumentException(s"Error: $msg")
-      moveCount = moveCount + 1
 
-      status(moveCount)
-      logger.info(s"Action: $input")
+    var continue = true
+    while continue do
+      val input = readLine("Enter your command ('help' or 'exit' to quit): ")
+
+      if input.toLowerCase == "exit" then continue = false
+      else if input.toLowerCase == "help" then
+        logger.info(s"Example input: Player 1 plays the card cQ")
+        logger.info(s"Example input: Player 0 draws 1 card/s")
+      else {
+        DSLParser.parseMove(input) match
+          case DSLParser.Success(move, _) =>
+            action(move, moveCount)
+            moveCount = moveCount + 1
+            status(moveCount)
+            logger.info(s"Action: $input")
+          case DSLParser.Failure(msg, _)  => logger.info(s"Parsing failed: $msg")
+          case DSLParser.Error(msg, _)    => logger.info(s"Error: $msg")
+      }
 
   private def action(move: Move, moveCount: Int): Unit =
     maumauController.executeMove(move) match

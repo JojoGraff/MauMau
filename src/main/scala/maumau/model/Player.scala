@@ -2,7 +2,7 @@ package maumau.model
 
 import scala.util.{Failure, Success, Try}
 
-case class Player(cards: Seq[Card]):
+case class Player(cards: Seq[Card] = Seq.empty):
   def addCard(card: Card): Player =
     this.copy(this.cards :+ card)
 
