@@ -13,5 +13,5 @@ case class LayMove(playerNumber: Int, card: Card) extends Move {
 }
 
 case class DrawMove(playerNumber: Int, drawAmount: Int) extends Move {
-  def asInputString() : String = s"Player $playerNumber draws $drawAmount card" + (if drawAmount > 1 then "s" else "")
+  def asInputString() : String = s"Player $playerNumber draws $drawAmount card/s"
 }

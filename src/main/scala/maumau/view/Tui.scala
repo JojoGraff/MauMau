@@ -20,12 +20,11 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
     val randomGame = new RandomGame(new Random(), maumauController.game.players.size)
 
     status(moveCount)
-    while moveCount < 10 do
+    while moveCount < 100 do
       val game = maumauController.game
       val randomMoveInput = randomGame.createRandomMove(game)
         .asInputString()
-
-      logger.info(s"TEST: ${randomMoveInput}")
+      
       DSLParser.parseMove(randomMoveInput) match
         case DSLParser.Success(move, _) => action(move, moveCount)
         case DSLParser.Failure(msg, _) => throw new IllegalArgumentException(s"Parsing failed: $msg")
@@ -38,8 +37,8 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
 
     val inputs = List(
       "Player 0 plays the card sA",
-      "Player 1 plays the card dJ"
-      // TODO add lay move
+      "Player 1 plays the card dJ",
+      "Player 0 draws 1 card/s"
     )
 
     var moveCount = 0
@@ -62,7 +61,9 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
       case Failure(exception) => logger.error("Error", exception)
 
   def status(moveCount: Int = -1): Unit =
-    if moveCount > -1 then logger.info(s"Maumau (move $moveCount)")
+    if moveCount > -1 then
+      logger.info(s"========================")
+      logger.info(s"Maumau (move $moveCount)")
 
     logger.info(s"Pile: ${maumauController.game.pile.display}")
     maumauController.game.players.zipWithIndex

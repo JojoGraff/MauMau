@@ -27,17 +27,7 @@ object DSLParser extends RegexParsers:
     "Player" ~> integer ~ "draws" ~ integer ~ "card/s" ^^ { case playerNumber ~ _ ~ amount ~ _ =>
       DrawMove(playerNumber, amount)
     }
-
-  /*  private def mauParse: Parser[Move] =
-    "Player" ~> integer ~ "says Mau" ^^ {
-      case playerNumber ~ "says Mau" => Move(MoveEnum.MAU, playerNumber,None,None,None)
-    }
-
-  private def maumauParse: Parser[Move] =
-    "Player" ~> integer ~ "says MauMau" ^^ {
-      case playerNumber ~ _ => Move(MoveEnum.MAUMAU, playerNumber, None, None, None)
-    }*/
-
+  
   private def completeParse: Parser[Move] = playParse
 
-  def parseMove(input: String): ParseResult[Move] = parse(completeParse, input)
+  def parseMove(input: String): ParseResult[Move] = parseAll(playParse | drawParse, input)
