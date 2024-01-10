@@ -20,4 +20,3 @@ import scala.util.Random
   val tui = Tui(maumauController)
 
   tui.loop()
-  //tui.autoPlay()

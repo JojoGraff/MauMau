@@ -18,11 +18,13 @@ import scala.concurrent.ExecutionContextExecutor
 import scala.util.{Failure, Random, Success}
 
 object KafkaConsumer extends App, LazyLogging:
-  implicit val system: ActorSystem = ActorSystem("consumer-sample")
+  implicit val system: ActorSystem = ActorSystem("consumer-maumau-moves")
   implicit val ec: ExecutionContextExecutor = system.dispatcher
 
   private val consumerSettings = ConsumerSettings(system, new StringDeserializer, new StringDeserializer)
-    .withBootstrapServers("localhost:9092")
+
+  val kafkaTopic = "play_game"
+  val kafkaKey = "move"
 
   val random = new Random()
   var game = Game(Deck(random), Pile(Seq()), Seq(Player(), Player()))
@@ -31,6 +33,7 @@ object KafkaConsumer extends App, LazyLogging:
 
   private val mapToObject: Flow[ConsumerRecord[String, String], Move, NotUsed] =
     Flow[ConsumerRecord[String, String]]
+      .filter(message => message.key() == kafkaKey)
       .map(message =>
         logger.info(s"Message '${message.value()}''")
         DSLParser.parseMove(message.value()) match
@@ -41,15 +44,10 @@ object KafkaConsumer extends App, LazyLogging:
 
   var messageNumber = 0
   val stream = Consumer
-    .plainSource(consumerSettings, Subscriptions.topics("test"))
+    .plainSource(consumerSettings, Subscriptions.topics(kafkaTopic))
     .via(mapToObject)
     .map { move =>
       tui.executeMove(move, messageNumber)
       messageNumber += 1
     }
     .runWith(Sink.ignore)
-
-  stream.onComplete {
-    case Success(_)   => println("Done"); system.terminate()
-    case Failure(err) => println(err.toString); system.terminate()
-  }
