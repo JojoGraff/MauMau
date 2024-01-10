@@ -26,4 +26,4 @@ class RandomGameMove(random: Random, playerCount: Int, deck: Deck):
             LayMove(playerNumber = actualPlayerNumber, card = card)
       case num if num == 1 =>
         val randomAmount = random.nextInt(3) + 1
-        DrawMove(actualPlayerNumber, deck.randomCards(randomAmount).head)
+        DrawMove(actualPlayerNumber, deck.randomCards(1).head)

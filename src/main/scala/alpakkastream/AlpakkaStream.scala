@@ -7,7 +7,7 @@ import akka.{Done, NotUsed}
 import com.typesafe.scalalogging.LazyLogging
 import dsl.DSLParser
 import dsl.model.Move
-import maumau.controller.{Game, MaumauController}
+import maumau.controller.{Game, MaumauController, RandomGameMove}
 import maumau.model.Card.*
 import maumau.model.{Card, Deck, Pile, Player}
 import maumau.view.Tui
@@ -28,15 +28,16 @@ class AlpakkaStream(using controller: MaumauController, tui: Tui) extends LazyLo
     pollingInterval = 250.millis
   )
 
-  private val filterOutEmpty = Flow[String].filter(a => !a.isBlank)
+  private val filterOutEmpty = Flow[String].filter(line => !line.isBlank)
 
   private val mapToMove: Flow[String, Move, NotUsed] =
     Flow[String]
-      .map(line => DSLParser.parseMove(line))
-      .map {
-        case DSLParser.Success(move, _) => move
-        case DSLParser.Failure(msg, _)  => throw new IllegalArgumentException(s"Parsing failed: $msg")
-        case DSLParser.Error(msg, _)    => throw new IllegalArgumentException(s"Error: $msg")
+      .map { line =>
+        logger.info(s"Read line '${line}''")
+        DSLParser.parseMove(line) match
+          case DSLParser.Success(move, _) => move
+          case DSLParser.Failure(msg, _)  => throw new IllegalArgumentException(s"Parsing failed: $msg")
+          case DSLParser.Error(msg, _)    => throw new IllegalArgumentException(s"Error: $msg")
       }
 
   private val execute: Flow[Move, String, NotUsed] = Flow[Move]
@@ -46,7 +47,11 @@ class AlpakkaStream(using controller: MaumauController, tui: Tui) extends LazyLo
         case Failure(exception) => throw new IllegalArgumentException(s"Error: $exception")
     )
 
-  private val printStatus = Sink.foreach(a => tui.status())
+  var messageNumber = 0
+  private val printStatus = Sink.foreach { _ =>
+    tui.status(messageNumber)
+    messageNumber += 1
+  }
 
   def run(): Unit =
     logger.info("Execute game via saved file")
@@ -63,16 +68,30 @@ class AlpakkaStream(using controller: MaumauController, tui: Tui) extends LazyLo
     }(system.dispatcher)
     .onComplete(_ => system.terminate())(system.dispatcher)
 
+def createRandomGame(maumauController: MaumauController, wantedNumberOfMoves: Int): Unit =
+  val randomGame = RandomGameMove(new Random(), maumauController.game.players.size, maumauController.game.deck)
+
+  for i <- 1 to wantedNumberOfMoves do
+    val game = maumauController.game
+    val move = randomGame.create(game)
+    maumauController.executeMove(move)
+
+    println(s"${move.asInputString()}")
+
 @main def main(): Unit =
   val random = Random()
   val deck = Deck(random)
 
   val pile = Pile(Seq())
-  val player1 = Player(Seq(Card.sA, Card.c7, Card.cJ, Card.cK, Card.h8))
-  val player2 = Player(Seq(Card.c9, Card.d8, Card.s9, Card.hK, Card.dJ))
-  val game = Game(deck, pile, Seq(player1, player2))
+  val player1 = Player(Seq())
+  val player2 = Player(Seq())
+  val player3 = Player(Seq())
+  val player4 = Player(Seq())
+  val game = Game(deck, pile, Seq(player1, player2, player3, player4))
   val maumauController = MaumauController(game)
   val tui = Tui(maumauController)
+
+ //  createRandomGame(maumauController, 1000)
 
   val alpakkaStream = AlpakkaStream(using maumauController, tui)
   alpakkaStream.run()
