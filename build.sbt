@@ -11,11 +11,7 @@ val dependencies = Seq(
   "com.lightbend.akka" %% "akka-stream-alpakka-file" % "7.0.1",
   "com.typesafe.akka" %% "akka-stream" % AkkaVersion,
   // kafka
-  "com.typesafe.akka" %% "akka-stream-kafka" % "4.0.2",
-  // json serializer
-  "io.circe" %% "circe-core" % "0.15.0-M1",
-  "io.circe" %% "circe-generic" % "0.15.0-M1",
-  "io.circe" %% "circe-parser" % "0.15.0-M1",
+  "com.typesafe.akka" %% "akka-stream-kafka" % "4.0.2"
 )
 
 lazy val root = project
@@ -25,5 +21,10 @@ lazy val root = project
     version := "0.1.0-SNAPSHOT",
     scalaVersion := scala3Version,
     libraryDependencies ++= dependencies ,
-    resolvers += "Akka library repository".at("https://repo.akka.io/maven")
+    resolvers += "Akka library repository".at("https://repo.akka.io/maven"),
+    scalacOptions ++= Seq(
+      "-unchecked",         
+      "-deprecation",      
+      "-feature"
+    )
   )

@@ -13,7 +13,7 @@ import org.scalatestplus.mockito.MockitoSugar.mock
 
 import scala.util.{Failure, Random, Success}
 
-class RandomGameSpec extends AsyncWordSpec with Matchers:
+class RandomGameMoveSpec extends AsyncWordSpec with Matchers:
 
   val randomMock: Random = mock[Random]
   when(randomMock.nextInt(1)).thenReturn(0)
@@ -25,30 +25,30 @@ class RandomGameSpec extends AsyncWordSpec with Matchers:
 
   "createRandomMove" should {
     "easy scenario" in {
-      val randomGame = new RandomGame(randomMock, players.size)
+      val randomGame = new RandomGameMove(randomMock, players.size, deck)
       var game = Game(deck,pile, players)
       val maumauController = new MaumauController(game)
 
-      var result = randomGame.createRandomMove(game)
+      var result = randomGame.create(game)
       result shouldBe LayMove(0, Card.dJ)
       maumauController.executeMove(result)
       game = maumauController.game
 
-      result = randomGame.createRandomMove(game)
-      result shouldBe DrawMove(1, 1)
+      result = randomGame.create(game)
+      result shouldBe DrawMove(1, Card.h7)
       maumauController.executeMove(result)
       game = maumauController.game
 
-      result = randomGame.createRandomMove(game)
-      result shouldBe DrawMove(0, 1)
+      result = randomGame.create(game)
+      result shouldBe DrawMove(0, Card.h7)
     }
 
     "draw a card" in {
-      val randomGame = new RandomGame(randomMock, players.size)
+      val randomGame = new RandomGameMove(randomMock, players.size, deck)
       val game = Game(deck, pile, players)
 
       when(randomMock.nextInt(1)).thenReturn(1)
-      val result = randomGame.createRandomMove(game)
-      result shouldBe DrawMove(0, 1)
+      val result = randomGame.create(game)
+      result shouldBe DrawMove(0, Card.h7)
     }
   }

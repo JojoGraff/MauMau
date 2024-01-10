@@ -64,7 +64,7 @@ class MaumauControllerSpec extends AsyncWordSpec with Matchers:
     }
 
     "execute a draw move" in {
-      val drawMove = DrawMove(0, 1)
+      val drawMove = DrawMove(0, Card.dJ)
 
       maumauController.executeMove(drawMove)
 

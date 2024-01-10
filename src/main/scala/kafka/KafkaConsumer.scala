@@ -6,41 +6,50 @@ import akka.kafka.scaladsl.Consumer
 import akka.kafka.{ConsumerSettings, Subscriptions}
 import akka.stream.scaladsl.{Flow, Sink}
 import com.typesafe.scalalogging.LazyLogging
+import dsl.DSLParser
 import dsl.model.Move
-import io.circe
-import io.circe.*
-import io.circe.generic.auto.*
-import io.circe.parser.*
+import maumau.controller.{Game, MaumauController}
+import maumau.model.{Deck, Pile, Player}
+import maumau.view.Tui
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.serialization.StringDeserializer
 
-import java.util
 import scala.concurrent.ExecutionContextExecutor
-import scala.util.{Failure, Success}
+import scala.util.{Failure, Random, Success}
 
 object KafkaConsumer extends App, LazyLogging:
-
   implicit val system: ActorSystem = ActorSystem("consumer-sample")
+  implicit val ec: ExecutionContextExecutor = system.dispatcher
 
-  private val consumerSettings =
-    ConsumerSettings(system, new StringDeserializer, new StringDeserializer)
+  private val consumerSettings = ConsumerSettings(system, new StringDeserializer, new StringDeserializer)
+    .withBootstrapServers("localhost:9092")
+
+  val random = new Random()
+  var game = Game(Deck(random), Pile(Seq()), Seq(Player(), Player()))
+  val maumauController = MaumauController(game)
+  val tui = Tui(maumauController)
 
   private val mapToObject: Flow[ConsumerRecord[String, String], Move, NotUsed] =
     Flow[ConsumerRecord[String, String]]
       .map(message =>
-        decode[Move](message.value()) match
-          case Left(df: DecodingFailure) => throw new IllegalArgumentException(s"Error:${df.message}")
-          case Left(pf: ParsingFailure)  => throw new IllegalArgumentException(s"Error:${pf.message}")
-          case Right(value)              => value
+        logger.info(s"Message '${message.value()}''")
+        DSLParser.parseMove(message.value()) match
+          case DSLParser.Success(move, _) => move
+          case DSLParser.Failure(msg, _)  => throw new IllegalArgumentException(s"Parsing failed: $msg")
+          case DSLParser.Error(msg, _)    => throw new IllegalArgumentException(s"Error: $msg")
       )
 
-  val done = Consumer
+  var messageNumber = 0
+  val stream = Consumer
     .plainSource(consumerSettings, Subscriptions.topics("test"))
     .via(mapToObject)
-    .runWith(Sink.foreach(println)) // just print each message for debugging
+    .map { move =>
+      tui.executeMove(move, messageNumber)
+      messageNumber += 1
+    }
+    .runWith(Sink.ignore)
 
-  implicit val ec: ExecutionContextExecutor = system.dispatcher
-  done.onComplete {
+  stream.onComplete {
     case Success(_)   => println("Done"); system.terminate()
     case Failure(err) => println(err.toString); system.terminate()
   }

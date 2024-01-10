@@ -14,6 +14,8 @@ import org.scalatestplus.mockito.MockitoSugar.mock
 import scala.language.postfixOps
 import scala.util.Random
 
+import scala.language.implicitConversions
+
 class CardSpec extends AsyncWordSpec with Matchers:
 
   "Card" should {
