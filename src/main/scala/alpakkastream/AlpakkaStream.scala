@@ -91,7 +91,7 @@ def createRandomGame(maumauController: MaumauController, wantedNumberOfMoves: In
   val maumauController = MaumauController(game)
   val tui = Tui(maumauController)
 
- //  createRandomGame(maumauController, 1000)
+ //  createRandomGame(maumauController, 1000) produces example moves
 
   val alpakkaStream = AlpakkaStream(using maumauController, tui)
   alpakkaStream.run()

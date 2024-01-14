@@ -10,5 +10,5 @@ case class LayMove(playerNumber: Int, card: Card) extends Move:
 
   def asInputString(): String = s"Player $playerNumber plays the card $card"
 
-case class DrawMove(playerNumber: Int, card: Card) extends Move:
-  def asInputString(): String = s"Player $playerNumber draws $card"
+case class DrawMove(playerNumber: Int, cards: List[Card]) extends Move:
+  def asInputString(): String = s"Player $playerNumber draws ${cards.mkString(", ")}"

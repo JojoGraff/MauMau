@@ -36,4 +36,6 @@ class MaumauController(var game: Game):
       case layMove: LayMove =>
         layCard(layMove.playerNumber, layMove.card)
       case drawMove: DrawMove =>
-        drawCard(drawMove.playerNumber, Seq(drawMove.card))
+        drawMove.cards.foreach( card => drawCard(drawMove.playerNumber, Seq(card)))
+        Try(s"Player ${drawMove.playerNumber} draws ${drawMove.cards.mkString(", ")}")
+
