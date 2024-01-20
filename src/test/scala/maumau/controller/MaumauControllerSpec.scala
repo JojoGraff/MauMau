@@ -1,7 +1,7 @@
 package maumau.controller
 
 import dsl.model.{DrawMove, LayMove}
-import maumau.model.{Card, Deck, Pile, Player}
+import maumau.model.{Card, Deck, Game, Pile, Player}
 import maumau.model.Rank.*
 import maumau.model.Symbol.*
 import org.mockito.ArgumentMatchers.anyInt

@@ -7,8 +7,8 @@ import akka.stream.scaladsl.{Flow, Source}
 import akka.{Done, NotUsed}
 import com.typesafe.scalalogging.LazyLogging
 import dsl.model.Move
-import maumau.controller.{Game, MaumauController, RandomGameMove}
-import maumau.model.{Deck, Pile, Player}
+import maumau.controller.{MaumauController, RandomGameMove}
+import maumau.model.{Deck, Game, Pile, Player}
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.common.serialization.StringSerializer
 

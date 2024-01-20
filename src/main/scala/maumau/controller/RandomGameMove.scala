@@ -1,7 +1,7 @@
 package maumau.controller
 
 import dsl.model.{DrawMove, LayMove, Move}
-import maumau.model.{Card, Deck, Pile, Player}
+import maumau.model.{Card, Deck, Game, Pile, Player}
 
 import scala.util.{Failure, Random, Success}
 

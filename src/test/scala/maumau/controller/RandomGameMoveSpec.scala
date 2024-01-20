@@ -3,7 +3,7 @@ package maumau.controller
 import dsl.model.{DrawMove, LayMove}
 import maumau.model.Rank.*
 import maumau.model.Symbol.*
-import maumau.model.{Card, Deck, Pile, Player}
+import maumau.model.{Card, Deck, Game, Pile, Player}
 import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.Mockito.{verify, when}
 import org.scalatest.flatspec.AnyFlatSpec

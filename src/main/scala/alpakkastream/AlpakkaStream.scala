@@ -7,9 +7,9 @@ import akka.{Done, NotUsed}
 import com.typesafe.scalalogging.LazyLogging
 import dsl.DSLParser
 import dsl.model.Move
-import maumau.controller.{Game, MaumauController, RandomGameMove}
+import maumau.controller.{MaumauController, RandomGameMove}
 import maumau.model.Card.*
-import maumau.model.{Card, Deck, Pile, Player}
+import maumau.model.{Card, Deck, Game, Pile, Player}
 import maumau.view.Tui
 
 import java.nio.file.FileSystems

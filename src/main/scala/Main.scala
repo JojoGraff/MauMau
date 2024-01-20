@@ -1,5 +1,5 @@
-import maumau.controller.{Game, MaumauController}
-import maumau.model.{Deck, Pile, Player}
+import maumau.controller.MaumauController
+import maumau.model.{Deck, Game, Pile, Player}
 import maumau.view.Tui
 
 import scala.util.Random

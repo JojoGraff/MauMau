@@ -1,11 +1,11 @@
 package dsl
 
 import dsl.PlayerInternalDSL
-import maumau.controller.{Game, MaumauController}
+import maumau.controller.MaumauController
 import maumau.model.Card.c7
 import maumau.model.Rank.*
 import maumau.model.Symbol.*
-import maumau.model.{Card, Deck, Pile, Player}
+import maumau.model.{Card, Deck, Game, Pile, Player}
 import org.mockito.Mockito.when
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers

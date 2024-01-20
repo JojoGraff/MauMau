@@ -1,4 +1,4 @@
-package maumau.controller
+package maumau.model
 
 import maumau.model.{Card, Deck, Pile, Player}
 

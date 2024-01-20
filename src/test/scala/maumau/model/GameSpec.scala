@@ -1,6 +1,5 @@
 package maumau.model
 
-import maumau.controller.Game
 import maumau.model.Card.{h7, hK}
 import maumau.model.Rank.{Rank_7, Rank_8}
 import maumau.model.Symbol.Hearts

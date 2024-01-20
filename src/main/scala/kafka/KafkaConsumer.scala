@@ -8,8 +8,8 @@ import akka.stream.scaladsl.{Flow, Sink}
 import com.typesafe.scalalogging.LazyLogging
 import dsl.DSLParser
 import dsl.model.Move
-import maumau.controller.{Game, MaumauController}
-import maumau.model.{Deck, Pile, Player}
+import maumau.controller.MaumauController
+import maumau.model.{Deck, Game, Pile, Player}
 import maumau.view.Tui
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.apache.kafka.common.serialization.StringDeserializer
