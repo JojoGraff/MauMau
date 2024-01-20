@@ -37,16 +37,16 @@ class MaumauControllerSpec extends AsyncWordSpec with Matchers with EitherValues
   }
 
   "layCard" should {
-    val cards: Seq[Card] = Seq(Card(Rank_7, Hearts), Card(Rank_8, Hearts))
+    val cards: Seq[Card] = Seq(Card(Rank_7, Hearts), Card(Rank_8, Hearts),Card(Rank_7, Hearts))
     val player2: Player = Player(cards)
     val game: Game = Game(deck, pile, Seq(player1, player2))
     val maumauController: MaumauController = MaumauController(game)
 
     "lay a card for player2" in {
-      maumauController.layCard(1, 0).value shouldBe "lay card down"
+      maumauController.layCard(1, Card(Rank_7, Hearts)).value shouldBe "lay card down"
 
       maumauController.game.pile.cards.head shouldEqual cards.head
-      maumauController.game.players(1).cards.size shouldBe 1
+      maumauController.game.players(1).cards shouldBe Seq(Card(Rank_8, Hearts), Card(Rank_7, Hearts))
     }
 
     "fail if index is out of range" in {

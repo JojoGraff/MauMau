@@ -30,7 +30,7 @@ class MaumauController(var game: Game):
       case Right(game) =>
         this.game = game
         Right("lay card down")
-  
+
   def executeMove(move: Move): Either[String,String] =
     move match
       case layMove: LayMove =>

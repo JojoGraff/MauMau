@@ -11,12 +11,12 @@ case class Game(deck: Deck, pile: Pile, players: Seq[Player]):
     drawCard(playerIndex, cards)
 
   def drawCard(playerIndex: Int, cards: Seq[Card]): Either[String, Game] =
-    playerTry(playerIndex)
+    player(playerIndex)
       .map(player => player.addCards(cards))
       .map(newPlayer => this.copy(deck, pile, players.updated(playerIndex, newPlayer)))
   def layCard(playerIndex: Int, cardIndex: Int): Either[String, Game] =
     for
-      player <- playerTry(playerIndex)
+      player <- player(playerIndex)
       next <- removeCard(player, cardIndex)
     yield this.copy(deck, next._2, players.updated(playerIndex, next._1))
 
@@ -26,20 +26,20 @@ case class Game(deck: Deck, pile: Pile, players: Seq[Player]):
       (newPlayer, newPile)
     }
 
-  def playerTry(playerIndex: Int): Either[String, Player] =
+  def player(playerIndex: Int): Either[String, Player] =
     players.lift(playerIndex) match
       case None         => Left(s"Player $playerIndex is not given")
       case Some(player) => Right(player)
 
   def getPlayerCard(playerIndex: Int, cardIndex: Int): Either[String, Card] =
     for
-      player <- playerTry(playerIndex)
+      player <- player(playerIndex)
       card <- player.card(cardIndex)
     yield card
 
   def getPlayerCardIndex(playerIndex: Int, card: Card): Either[String, Int] =
     for
-      player <- playerTry(playerIndex)
+      player <- player(playerIndex)
       cardIndex <- player.cardIndex(card)
     yield cardIndex
 

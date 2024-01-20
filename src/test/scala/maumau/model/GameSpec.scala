@@ -108,4 +108,16 @@ class GameSpec extends AsyncWordSpec with Matchers with EitherValues:
 
       result.left.value shouldBe "Card hK not found"
     }
+
+    "getPlayerCard" should {
+      val cards: Seq[Card] = Seq(Card(Rank_7, Hearts), Card(Rank_8, Hearts),Card(Rank_7, Hearts))
+      val player2: Player = Player(cards)
+      val sut: Game = Game(deck, pile, Seq(player1, player2))
+
+      "get the given card from the player" in {
+        val result = sut.getPlayerCard(1, 0).value
+
+        result shouldEqual cards.head
+      }
+    }
   }

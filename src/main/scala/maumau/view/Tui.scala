@@ -36,12 +36,11 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
           case DSLParser.Error(msg, _)   => logger.info(s"Could not parse the input. Type 'help' for input example")
           case DSLParser.Success(move, _) =>
             maumauController.executeMove(move) match
-              case Left(message)  => logger.info("Could not execute move. $message")
+              case Left(message)  => logger.info(s"Could not execute move. $message")
               case Right(message) =>
-
-            moveCount = moveCount + 1
-            status(moveCount)
-            logger.info(s"Action: $input")
+                moveCount = moveCount + 1
+                status(moveCount)
+                logger.info(s"Action: $input")
 
   def status(number: Int = -1): Unit =
     if number > -1 then logger.info(s"Nr.$number - Maumau")
