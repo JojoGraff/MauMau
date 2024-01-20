@@ -27,6 +27,7 @@ case class Player(cards: Seq[Card] = Seq.empty):
 
   private def dropFirstMatch[A](xs: Seq[A], value: A): Seq[A] =
     val idx = xs.indexOf(value)
-    for (x, i) <- xs.zipWithIndex 
-        if i != idx
+    for
+      (x, i) <- xs.zipWithIndex
+      if i != idx
     yield x

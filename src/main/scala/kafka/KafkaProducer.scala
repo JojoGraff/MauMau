@@ -16,7 +16,7 @@ import scala.concurrent.{ExecutionContextExecutor, Future}
 import scala.language.postfixOps
 import scala.util.{Failure, Random, Success}
 
-object KafkaProducer extends App , LazyLogging:
+object KafkaProducer extends App, LazyLogging:
   implicit val system: ActorSystem = ActorSystem("producer-maumau-moves")
   implicit val ec: ExecutionContextExecutor = system.dispatcher
 

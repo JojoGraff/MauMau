@@ -44,7 +44,7 @@ class AlpakkaStream(using controller: MaumauController, tui: Tui) extends LazyLo
     .map(move =>
       controller.executeMove(move) match
         case Left(message) => throw new RuntimeException(s"Error: $message")
-        case Right(value)     => value
+        case Right(value)  => value
     )
 
   var messageNumber = 0
@@ -91,7 +91,7 @@ def createRandomGame(maumauController: MaumauController, wantedNumberOfMoves: In
   val maumauController = MaumauController(game)
   val tui = Tui(maumauController)
 
- //  createRandomGame(maumauController, 1000)
+  //  createRandomGame(maumauController, 1000)
 
   val alpakkaStream = AlpakkaStream(using maumauController, tui)
   alpakkaStream.run()

@@ -13,8 +13,8 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
 
   def executeMove(move: Move, number: Int = -1): Unit =
     maumauController.executeMove(move) match
-      case Left(message) => logger.error("Error", message)
-      case Right(message)   =>
+      case Left(message)  => logger.error("Error", message)
+      case Right(message) =>
 
     status(number)
 
@@ -33,10 +33,10 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
       else
         DSLParser.parseMove(input) match
           case DSLParser.Failure(_, _) => logger.info(s"Could not parse the input. Type 'help' for input example")
-          case DSLParser.Error(msg, _)   => logger.info(s"Could not parse the input. Type 'help' for input example")
+          case DSLParser.Error(msg, _) => logger.info(s"Could not parse the input. Type 'help' for input example")
           case DSLParser.Success(move, _) =>
             maumauController.executeMove(move) match
-              case Left(message)  => logger.info(s"Could not execute move. $message")
+              case Left(message) => logger.info(s"Could not execute move. $message")
               case Right(message) =>
                 moveCount = moveCount + 1
                 status(moveCount)

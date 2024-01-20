@@ -14,8 +14,7 @@ class RandomGameMove(random: Random, playerCount: Int, deck: Deck):
     nextPlayer()
 
     val cardCount = game.getPlayerCardCount(actualPlayerNumber)
-    if cardCount <= 1 then
-      return DrawMove(actualPlayerNumber, deck.randomCards(1).head)
+    if cardCount <= 1 then return DrawMove(actualPlayerNumber, deck.randomCards(1).head)
 
     random.nextInt(1) match
       case num if num == 0 =>
