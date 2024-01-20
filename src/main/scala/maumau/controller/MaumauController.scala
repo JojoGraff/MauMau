@@ -6,32 +6,32 @@ import maumau.model.Card
 import scala.util.{Failure, Success, Try}
 
 class MaumauController(var game: Game):
-  def drawCard(playerIndex: Int, amount: Int): Try[String] =
+  def drawCard(playerIndex: Int, amount: Int): Either[String,String] =
     game.drawCard(playerIndex, amount) match
-      case Success(game) =>
+      case Left(message) => Left(message)
+      case Right(game) =>
         this.game = game
-        Success("draw card from pile")
-      case Failure(message) => Failure(message)
+        Right("draw card from pile")
 
-  def drawCard(playerIndex: Int, cards : Seq[Card]): Try[String] =
+  def drawCard(playerIndex: Int, cards : Seq[Card]): Either[String,String] =
     game.drawCard(playerIndex, cards) match
-      case Success(game) =>
+      case Left(message) => Left(message)
+      case Right(game) =>
         this.game = game
-        Success("draw card from pile")
-      case Failure(message) => Failure(message)
-  def layCard(playerIndex: Int, card: Card): Try[String] =
+        Right("draw card from pile")
+  def layCard(playerIndex: Int, card: Card): Either[String,String] =
     game
       .getPlayerCardIndex(playerIndex, card)
       .flatMap(cardIndex => layCard(playerIndex, cardIndex))
 
-  def layCard(playerIndex: Int, cardIndex: Int): Try[String] =
+  def layCard(playerIndex: Int, cardIndex: Int): Either[String,String] =
     game.layCard(playerIndex, cardIndex) match
-      case Success(game) =>
+      case Left(message) => Left(message)
+      case Right(game) =>
         this.game = game
-        Success("lay card down")
-      case Failure(message) => Failure(message)
+        Right("lay card down")
   
-  def executeMove(move: Move): Try[String] =
+  def executeMove(move: Move): Either[String,String] =
     move match
       case layMove: LayMove =>
         layCard(layMove.playerNumber, layMove.card)

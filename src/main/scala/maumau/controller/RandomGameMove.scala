@@ -21,8 +21,8 @@ class RandomGameMove(random: Random, playerCount: Int, deck: Deck):
       case num if num == 0 =>
         val randomCardIndex = random.nextInt(cardCount - 1)
         game.getPlayerCard(actualPlayerNumber, randomCardIndex) match
-          case Failure(exception) => throw exception
-          case Success(card) =>
+          case Left(message) => throw new RuntimeException(message)
+          case Right(card) =>
             LayMove(playerNumber = actualPlayerNumber, card = card)
       case num if num == 1 =>
         val randomAmount = random.nextInt(3) + 1

@@ -6,6 +6,7 @@ import maumau.model.Rank.*
 import maumau.model.Symbol.*
 import org.mockito.ArgumentMatchers.anyInt
 import org.mockito.Mockito.{verify, when}
+import org.scalatest.EitherValues
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AsyncWordSpec
@@ -13,7 +14,7 @@ import org.scalatestplus.mockito.MockitoSugar.mock
 
 import scala.util.{Failure, Random, Success}
 
-class MaumauControllerSpec extends AsyncWordSpec with Matchers:
+class MaumauControllerSpec extends AsyncWordSpec with Matchers with EitherValues:
 
   val randomMock: Random = mock[Random]
   when(randomMock.nextInt).thenReturn(1)
@@ -26,12 +27,12 @@ class MaumauControllerSpec extends AsyncWordSpec with Matchers:
 
   "drawCard" should {
     "draw a card for player2" in {
-      maumauController.drawCard(1, 2)  shouldBe a [Success[_]]
+      maumauController.drawCard(1, 2).value shouldBe "draw card from pile"
       maumauController.game.players(1).cards.size shouldBe 2
     }
 
-    "faile if player index is out of range" in {
-      maumauController.drawCard(10, 2)  shouldBe a [Failure[_]]
+    "fail if player index is out of range" in {
+      maumauController.drawCard(10, 2).left.value  shouldBe "Player 10 is not given"
     }
   }
 
@@ -42,14 +43,14 @@ class MaumauControllerSpec extends AsyncWordSpec with Matchers:
     val maumauController: MaumauController = MaumauController(game)
 
     "lay a card for player2" in {
-      maumauController.layCard(1, 0) shouldBe a[Success[_]]
+      maumauController.layCard(1, 0).value shouldBe "lay card down"
 
-      maumauController.game.pile.cards.head shouldEqual cards(0)
+      maumauController.game.pile.cards.head shouldEqual cards.head
       maumauController.game.players(1).cards.size shouldBe 1
     }
 
     "fail if index is out of range" in {
-      maumauController.layCard(1, 10) shouldBe a[Failure[_]]
+      maumauController.layCard(1, 10).left.value shouldBe "Card index 10 is not given"
     }
   }
 

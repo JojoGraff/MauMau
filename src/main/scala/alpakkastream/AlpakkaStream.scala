@@ -43,8 +43,8 @@ class AlpakkaStream(using controller: MaumauController, tui: Tui) extends LazyLo
   private val execute: Flow[Move, String, NotUsed] = Flow[Move]
     .map(move =>
       controller.executeMove(move) match
-        case Success(value)     => value
-        case Failure(exception) => throw new IllegalArgumentException(s"Error: $exception")
+        case Left(message) => throw new RuntimeException(s"Error: $message")
+        case Right(value)     => value
     )
 
   var messageNumber = 0

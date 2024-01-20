@@ -1,21 +1,16 @@
 package maumau.model
 
-import maumau.model.{Card, Player}
 import maumau.model.Rank.*
 import maumau.model.Symbol.Hearts
-import org.mockito.Mockito.{reset, when}
-import org.scalactic.Fail
-import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.EitherValues
 import org.scalatest.matchers.should
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AsyncWordSpec
-import org.scalatestplus.mockito.MockitoSugar.mock
 
 import scala.language.postfixOps
-import scala.util.{Failure, Random}
+import scala.util.Failure
 
-class PlayerSpec extends AsyncWordSpec with Matchers:
+class PlayerSpec extends AsyncWordSpec with Matchers with EitherValues:
   val cards: Seq[Card] = Seq(Card(Rank_7, Hearts), Card(Rank_8, Hearts))
   val player: Player = Player(Seq())
 
@@ -39,26 +34,26 @@ class PlayerSpec extends AsyncWordSpec with Matchers:
   "removeCard" should {
     "remove given card" in {
       val player: Player = Player(cards)
-      val (newPlayer, removedCard) = player.removeCard(1).get
+      val newValue = player.removeCard(1).value
 
-      removedCard shouldEqual cards(1)
-      newPlayer.cards.size shouldBe 1
+      newValue._1.cards.size shouldBe 1
+      newValue._2 shouldEqual cards(1)
     }
 
     "fail if index of card is out of range" in {
-      player.removeCard(10) shouldBe a[Failure[_]]
+      player.removeCard(10).left.value shouldBe "Card index 10 is not given"
     }
   }
 
   "cardTry" should {
     "get given card" in {
       val player: Player = Player(cards)
-      val result = player.cardTry(1).get
+      val result = player.card(1).value
 
       result shouldEqual cards(1)
     }
 
     "fail if index of card is out of range" in {
-      player.cardTry(10) shouldBe a[Failure[_]]
+      player.card(10).left.value shouldBe "Card 10 is not given"
     }
   }
