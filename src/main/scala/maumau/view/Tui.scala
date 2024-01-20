@@ -24,7 +24,8 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
 
     var continue = true
     while continue do
-      val input = readLine("Enter your command ('help' or 'exit' to quit): ")
+      logger.info("Enter your command ('help' or 'exit' to quit)")
+      val input = readLine("::")
 
       if input.toLowerCase == "exit" then continue = false
       else if input.toLowerCase == "help" then
@@ -43,7 +44,7 @@ case class Tui(maumauController: MaumauController) extends LazyLogging:
                 logger.info(s"Action: $input")
 
   def status(number: Int = -1): Unit =
-    if number > -1 then logger.info(s"Nr.$number - Maumau")
+    if number > -1 then logger.info(s"[$number] - Maumau")
     logger.info(s"Pile: ${maumauController.game.pile.display}")
     maumauController.game.players.zipWithIndex
       .foreach((player, i) => logger.info(player.cards.foldLeft(s"Player $i:")((card1, card2) => card1 + " " + card2)))
