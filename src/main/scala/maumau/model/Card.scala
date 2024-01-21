@@ -5,8 +5,6 @@ import maumau.model.Rank.{Rank_8, Rank_9}
 case class Card(rank: Rank, symbol: Symbol):
   override def toString = s"${symbol.displayName}${rank.displayName}"
 
-  def sameColour(card: Card): Boolean = this.symbol.sameColour(card.symbol)
-
 object Card:
 
   given fromStringToCard: Conversion[String, Option[Card]] with
