@@ -35,12 +35,12 @@ class RandomGameMoveSpec extends AsyncWordSpec with Matchers:
       game = maumauController.game
 
       result = randomGame.create(game)
-      result shouldBe DrawMove(1, Card.h7)
+      result shouldBe DrawMove(1, List(Card.h7))
       maumauController.executeMove(result)
       game = maumauController.game
 
       result = randomGame.create(game)
-      result shouldBe DrawMove(0, Card.h7)
+      result shouldBe DrawMove(0, List(Card.h7))
     }
 
     "draw a card" in {
@@ -49,6 +49,6 @@ class RandomGameMoveSpec extends AsyncWordSpec with Matchers:
 
       when(randomMock.nextInt(1)).thenReturn(1)
       val result = randomGame.create(game)
-      result shouldBe DrawMove(0, Card.h7)
+      result shouldBe DrawMove(0, List(Card.h7))
     }
   }
